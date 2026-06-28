@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="极简在线工具箱 - JSON格式化、Base64编解码、URL编解码、时间戳转换、二维码生成、密码生成、Markdown预览等免费在线工具">
-<meta name="keywords" content="在线工具,JSON格式化,Base64编码,URL编码,时间戳,二维码生成,密码生成器,Markdown,正则表达式,文本对比">
+<meta name="description" content="极简在线工具箱 - 14个免费在线工具：JSON格式化、Base64编解码、UUID生成、Hash计算、HTML实体、Lorem Ipsum、二维码生成等">
+<meta name="keywords" content="在线工具,JSON格式化,Base64编码,URL编码,时间戳,二维码生成,密码生成器,Markdown,正则表达式,文本对比,UUID生成,Hash计算,HTML实体,Lorem Ipsum,MD5,SHA256">
 <meta property="og:title" content="ToolBox Pro - 极简在线工具箱">
 <meta property="og:description" content="干净、快速、好用的在线工具集合。JSON格式化、Base64编解码、二维码生成等10个免费工具。">
 <meta property="og:type" content="website">
@@ -14,7 +14,7 @@
 <meta name="twitter:description" content="10个免费在线工具：JSON、Base64、二维码、正则等，干净快速无广告轰炸。">
 <title>ToolBox Pro - 极简在线工具箱 | JSON格式化 Base64 二维码 正则测试</title>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"ToolBox Pro","url":"https://dingpeng29.github.io/toolbox-pro/","description":"极简在线工具箱，提供JSON格式化、Base64编解码、URL编解码、时间戳转换、二维码生成等10个免费在线工具。","applicationCategory":"Utility","operatingSystem":"All","inLanguage":"zh-CN"}
+{"@context":"https://schema.org","@type":"WebApplication","name":"ToolBox Pro","url":"https://dingpeng29.github.io/toolbox-pro/","description":"极简在线工具箱，提供JSON格式化、Base64编解码、UUID生成、Hash计算、HTML实体编解码、Lorem Ipsum生成等14个免费在线工具。","applicationCategory":"Utility","operatingSystem":"All","inLanguage":"zh-CN"}
 </script>
 <style>
 :root {
@@ -117,7 +117,7 @@ textarea { min-height:160px; }
 <div class="container">
   <div class="hero">
     <h1>极简在线工具箱</h1>
-    <p>干净、快速、好用的在线工具集合。不做广告轰炸，专注工具本身。</p>
+    <p>14个免费在线工具，干净、快速、好用。JSON格式化 · Base64 · UUID · Hash · 二维码 · 正则 · 文本对比 等。纯浏览器本地运行，数据不上传。</p>
   </div>
 
   <div class="tool-tabs" id="toolTabs">
@@ -131,6 +131,10 @@ textarea { min-height:160px; }
     <button class="tool-tab" data-tool="color">颜色转换</button>
     <button class="tool-tab" data-tool="regex">正则测试</button>
     <button class="tool-tab" data-tool="diff">文本对比</button>
+    <button class="tool-tab" data-tool="uuid">UUID生成</button>
+    <button class="tool-tab" data-tool="hash">Hash计算</button>
+    <button class="tool-tab" data-tool="htmlentity">HTML实体</button>
+    <button class="tool-tab" data-tool="lorem">Lorem Ipsum</button>
   </div>
 
   <!-- JSON Formatter -->
@@ -292,6 +296,67 @@ textarea { min-height:160px; }
     </div>
     <button class="btn btn-primary" style="margin-top:8px;" onclick="compareDiff()">对比差异</button>
     <div class="result-box" id="diffOutput" style="margin-top:8px;"></div>
+  </div>
+
+  <!-- UUID Generator -->
+  <div class="tool-panel" id="panel-uuid">
+    <h2>UUID 生成器</h2>
+    <p class="desc">生成全局唯一标识符（UUID），支持UUID v4（随机）和v7（时间排序）。</p>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="generateUUIDv4()">生成 UUID v4</button>
+      <button class="btn btn-secondary" onclick="generateUUIDv7()">生成 UUID v7</button>
+      <button class="btn btn-secondary" onclick="generateUUIDs(5)">批量生成 x5</button>
+      <button class="btn btn-secondary" onclick="generateUUIDs(10)">批量生成 x10</button>
+    </div>
+    <div class="result-box" id="uuidOutput" style="font-family:'SF Mono','Consolas',monospace;"></div>
+  </div>
+
+  <!-- Hash Generator -->
+  <div class="tool-panel" id="panel-hash">
+    <h2>Hash 计算器</h2>
+    <p class="desc">计算文本的MD5、SHA-1、SHA-256、SHA-512哈希值。使用浏览器原生Web Crypto API。</p>
+    <textarea id="hashInput" placeholder="输入要计算哈希值的文本..."></textarea>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="computeHash('SHA-256')">SHA-256</button>
+      <button class="btn btn-secondary" onclick="computeHash('SHA-1')">SHA-1</button>
+      <button class="btn btn-secondary" onclick="computeHash('SHA-512')">SHA-512</button>
+      <button class="btn btn-secondary" onclick="computeHash('MD5')">MD5</button>
+    </div>
+    <div class="result-box" id="hashOutput"></div>
+  </div>
+
+  <!-- HTML Entity -->
+  <div class="tool-panel" id="panel-htmlentity">
+    <h2>HTML 实体编解码</h2>
+    <p class="desc">HTML特殊字符的实体编码和解码，支持所有常用HTML实体（&amp;lt; &amp;gt; &amp;amp; 等）。</p>
+    <textarea id="htmlEntityInput" placeholder="输入HTML文本或实体编码文本..."></textarea>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="htmlEntityEncode()">编码 (Encode)</button>
+      <button class="btn btn-secondary" onclick="htmlEntityDecode()">解码 (Decode)</button>
+      <button class="btn btn-secondary" onclick="document.getElementById('htmlEntityInput').value='';document.getElementById('htmlEntityOutput').textContent='';">清空</button>
+    </div>
+    <div class="result-box" id="htmlEntityOutput"></div>
+  </div>
+
+  <!-- Lorem Ipsum Generator -->
+  <div class="tool-panel" id="panel-lorem">
+    <h2>Lorem Ipsum 占位文本生成</h2>
+    <p class="desc">生成Lorem Ipsum占位文本，适用于设计稿、排版测试等场景。支持自定义段落数和长度。</p>
+    <div class="inline-row" style="margin-bottom:12px;">
+      <div>
+        <label style="font-size:14px;color:var(--text2);">段落数:</label>
+        <input type="number" id="loremCount" value="3" min="1" max="50" style="width:80px;">
+      </div>
+      <div>
+        <label style="font-size:14px;color:var(--text2);">每段句数:</label>
+        <input type="number" id="loremSentences" value="5" min="1" max="20" style="width:80px;">
+      </div>
+      <button class="btn btn-primary" onclick="generateLorem()">生成</button>
+    </div>
+    <label style="font-size:14px;cursor:pointer;display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+      <input type="checkbox" id="loremStartWithLorem"> 以 "Lorem ipsum dolor sit amet" 开头
+    </label>
+    <div class="result-box" id="loremOutput"></div>
   </div>
 
 </div>
@@ -658,6 +723,154 @@ function computeDiff(oldLines, newLines) {
   }
   while (stack.length) result.push(stack.pop());
   return result;
+}
+
+// --- UUID ---
+function generateUUIDv4() {
+  if (crypto.randomUUID) {
+    document.getElementById('uuidOutput').textContent = crypto.randomUUID();
+  } else {
+    // Fallback: manually construct UUID v4
+    const bytes = new Uint8Array(16);
+    crypto.getRandomValues(bytes);
+    bytes[6] = (bytes[6] & 0x0f) | 0x40;
+    bytes[8] = (bytes[8] & 0x3f) | 0x80;
+    const hex = Array.from(bytes, b => b.toString(16).padStart(2, '0'));
+    document.getElementById('uuidOutput').textContent =
+      hex.slice(0,4).join('') + '-' + hex[4] + hex[5] + hex[6] + '-' + hex[7] + hex[8] + '-' + hex[9] + hex[10] + '-' + hex.slice(11).join('');
+  }
+}
+function generateUUIDv7() {
+  const ms = BigInt(Date.now());
+  const rand = new Uint8Array(10);
+  crypto.getRandomValues(rand);
+  const randA = BigInt('0x' + Array.from(rand.slice(0, 6)).map(b => b.toString(16).padStart(2, '0')).join(''));
+  const randB = BigInt('0x' + Array.from(rand.slice(6)).map(b => b.toString(16).padStart(2, '0')).join(''));
+  const uuid = (ms << 80n) | ((randA << 16n) & 0x3FFFn) | (0x7000n << 48n) | ((randB & 0x3FFFFFFFFFFFFFFFn) | 0x8000000000000000n);
+  const hex = uuid.toString(16).padStart(32, '0');
+  document.getElementById('uuidOutput').textContent =
+    hex.slice(0,8) + '-' + hex.slice(8,12) + '-7' + hex.slice(13,16) + '-' + hex.slice(16,20) + '-' + hex.slice(20);
+}
+function generateUUIDs(n) {
+  const uuids = [];
+  for (let i = 0; i < n; i++) {
+    if (crypto.randomUUID) { uuids.push(crypto.randomUUID()); }
+    else {
+      const bytes = new Uint8Array(16);
+      crypto.getRandomValues(bytes);
+      bytes[6] = (bytes[6] & 0x0f) | 0x40;
+      bytes[8] = (bytes[8] & 0x3f) | 0x80;
+      uuids.push(Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('').replace(/(.{8})(.{4})(.{4})(.{4})(.{12})/, '$1-$2-$3-$4-$5'));
+    }
+  }
+  document.getElementById('uuidOutput').textContent = uuids.join('\n');
+}
+
+// --- Hash ---
+async function computeHash(algo) {
+  const input = document.getElementById('hashInput').value;
+  if (!input) { document.getElementById('hashOutput').textContent = '请先输入文本'; return; }
+  const output = document.getElementById('hashOutput');
+  output.innerHTML = '<span style="color:var(--text2);">计算中...</span>';
+  try {
+    if (algo === 'MD5') {
+      // Simple MD5 implementation for demo (pure JS)
+      output.textContent = md5(input);
+    } else {
+      const enc = new TextEncoder().encode(input);
+      const hash = await crypto.subtle.digest(algo, enc);
+      output.textContent = Array.from(new Uint8Array(hash), b => b.toString(16).padStart(2, '0')).join('');
+    }
+  } catch(e) {
+    output.textContent = '计算失败: ' + e.message;
+  }
+}
+function md5(s) {
+  function cmn(q,a,b,x,s,t){return add(rol(add(add(a,q),add(x,t)),s),b);}
+  function ff(a,b,c,d,x,s,t){return cmn((b&c)|((~b)&d),a,b,x,s,t);}
+  function gg(a,b,c,d,x,s,t){return cmn((b&d)|(c&(~d)),a,b,x,s,t);}
+  function hh(a,b,c,d,x,s,t){return cmn(b^c^d,a,b,x,s,t);}
+  function ii(a,b,c,d,x,s,t){return cmn(c^(b|(~d)),a,b,x,s,t);}
+  function add(x,y){var lsw=(x&0xFFFF)+(y&0xFFFF);var msw=(x>>16)+(y>>16)+(lsw>>16);return(msw<<16)|(lsw&0xFFFF);}
+  function rol(num,cnt){return(num<<cnt)|(num>>>(32-cnt));}
+  function str2binl(s){var b=[];for(var i=0;i<s.length*8;i+=8)b[i>>5]|=(s.charCodeAt(i/8)&255)<<(i%32);return b;}
+  function binl2hex(b){var t="0123456789abcdef",o="";for(var i=0;i<b.length*4;i++)o+=t.charAt((b[i>>2]>>((i%4)*8+4))&0xF)+t.charAt((b[i>>2]>>((i%4)*8))&0xF);return o;}
+  var x=str2binl(unescape(encodeURIComponent(s)));
+  var len=s.length*8;
+  x[len>>5]|=0x80<<((len)%32);
+  x[(((len+64)>>>9)<<4)+14]=len;
+  var a=1732584193,b=-271733879,c=-1732584194,d=271733878;
+  for(var i=0;i<x.length;i+=16){
+    var oa=a,ob=b,oc=c,od=d;
+    a=ff(a,b,c,d,x[i+0],7,-680876936);d=ff(d,a,b,c,x[i+1],12,-389564586);c=ff(c,d,a,b,x[i+2],17,606105819);b=ff(b,c,d,a,x[i+3],22,-1044525330);
+    a=ff(a,b,c,d,x[i+4],7,-176418897);d=ff(d,a,b,c,x[i+5],12,1200080426);c=ff(c,d,a,b,x[i+6],17,-1473231341);b=ff(b,c,d,a,x[i+7],22,-45705983);
+    a=ff(a,b,c,d,x[i+8],7,1770035416);d=ff(d,a,b,c,x[i+9],12,-1958414417);c=ff(c,d,a,b,x[i+10],17,-42063);b=ff(b,c,d,a,x[i+11],22,-1990404162);
+    a=ff(a,b,c,d,x[i+12],7,1804603682);d=ff(d,a,b,c,x[i+13],12,-40341101);c=ff(c,d,a,b,x[i+14],17,-1502002290);b=ff(b,c,d,a,x[i+15],22,1236535329);
+    a=gg(a,b,c,d,x[i+1],5,-165796510);d=gg(d,a,b,c,x[i+6],9,-1069501632);c=gg(c,d,a,b,x[i+11],14,643717713);b=gg(b,c,d,a,x[i+0],20,-373897302);
+    a=gg(a,b,c,d,x[i+5],5,-701558691);d=gg(d,a,b,c,x[i+10],9,38016083);c=gg(c,d,a,b,x[i+15],14,-660478335);b=gg(b,c,d,a,x[i+4],20,-405537848);
+    a=gg(a,b,c,d,x[i+9],5,568446438);d=gg(d,a,b,c,x[i+14],9,-1019803690);c=gg(c,d,a,b,x[i+3],14,-187363961);b=gg(b,c,d,a,x[i+8],20,1163531501);
+    a=gg(a,b,c,d,x[i+13],5,-1444681467);d=gg(d,a,b,c,x[i+2],9,-51403784);c=gg(c,d,a,b,x[i+7],14,1735328473);b=gg(b,c,d,a,x[i+12],20,-1926607734);
+    a=hh(a,b,c,d,x[i+5],4,-378558);d=hh(d,a,b,c,x[i+8],11,-2022574463);c=hh(c,d,a,b,x[i+11],16,1839030562);b=hh(b,c,d,a,x[i+14],23,-35309556);
+    a=hh(a,b,c,d,x[i+1],4,-1530992060);d=hh(d,a,b,c,x[i+4],11,1272893353);c=hh(c,d,a,b,x[i+7],16,-155497632);b=hh(b,c,d,a,x[i+10],23,-1094730640);
+    a=hh(a,b,c,d,x[i+13],4,681279174);d=hh(d,a,b,c,x[i+0],11,-358537222);c=hh(c,d,a,b,x[i+3],16,-722521979);b=hh(b,c,d,a,x[i+6],23,76029189);
+    a=hh(a,b,c,d,x[i+9],4,-640364487);d=hh(d,a,b,c,x[i+12],11,-421815835);c=hh(c,d,a,b,x[i+15],16,530742520);b=hh(b,c,d,a,x[i+2],23,-995338651);
+    a=ii(a,b,c,d,x[i+0],6,-198630844);d=ii(d,a,b,c,x[i+7],10,1126891415);c=ii(c,d,a,b,x[i+14],15,-1416354905);b=ii(b,c,d,a,x[i+5],21,-57434055);
+    a=ii(a,b,c,d,x[i+12],6,1700485571);d=ii(d,a,b,c,x[i+3],10,-1894986606);c=ii(c,d,a,b,x[i+10],15,-1051523);b=ii(b,c,d,a,x[i+1],21,-2054922799);
+    a=ii(a,b,c,d,x[i+8],6,1873313359);d=ii(d,a,b,c,x[i+15],10,-30611744);c=ii(c,d,a,b,x[i+6],15,-1560198380);b=ii(b,c,d,a,x[i+13],21,1309151649);
+    a=ii(a,b,c,d,x[i+4],6,-145523070);d=ii(d,a,b,c,x[i+11],10,-1120210379);c=ii(c,d,a,b,x[i+2],15,718787259);b=ii(b,c,d,a,x[i+9],21,-343485551);
+    a=add(a,oa);b=add(b,ob);c=add(c,oc);d=add(d,od);
+  }
+  return binl2hex([a,b,c,d]);
+}
+
+// --- HTML Entity ---
+function htmlEntityEncode() {
+  const input = document.getElementById('htmlEntityInput').value;
+  if (!input) return;
+  const d = document.createElement('div');
+  d.textContent = input;
+  document.getElementById('htmlEntityOutput').textContent = d.innerHTML;
+}
+function htmlEntityDecode() {
+  const input = document.getElementById('htmlEntityInput').value;
+  if (!input) return;
+  const d = document.createElement('div');
+  d.innerHTML = input;
+  document.getElementById('htmlEntityOutput').textContent = d.textContent;
+}
+
+// --- Lorem Ipsum ---
+function generateLorem() {
+  const count = parseInt(document.getElementById('loremCount').value) || 3;
+  const sentences = parseInt(document.getElementById('loremSentences').value) || 5;
+  const startLorem = document.getElementById('loremStartWithLorem').checked;
+  const words = ['lorem','ipsum','dolor','sit','amet','consectetur','adipiscing','elit','sed','do','eiusmod','tempor','incididunt','ut','labore','et','dolore','magna','aliqua','enim','ad','minim','veniam','quis','nostrud','exercitation','ullamco','laboris','nisi','ut','aliquip','ex','ea','commodo','consequat','duis','aute','irure','dolor','in','reprehenderit','in','voluptate','velit','esse','cillum','dolore','eu','fugiat','nulla','pariatur','excepteur','sint','occaecat','cupidatat','non','proident','sunt','in','culpa','qui','officia','deserunt','mollit','anim','id','est','laborum'];
+  const paragraphs = [];
+  for (let p = 0; p < count; p++) {
+    let text = [];
+    const numWords = (sentences * (6 + Math.floor(Math.random() * 10)));
+    for (let i = 0; i < numWords; i++) {
+      text.push(words[Math.floor(Math.random() * words.length)]);
+    }
+    // Capitalize first letter of each sentence
+    let result = '';
+    let wordIndex = 0;
+    for (let s = 0; s < sentences; s++) {
+      const sentenceWords = Math.floor(text.length / sentences) + Math.floor(Math.random() * 3);
+      for (let w = 0; w < sentenceWords && wordIndex < text.length; w++) {
+        const word = text[wordIndex];
+        result += (w === 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word);
+        if (w < sentenceWords - 1) result += ' ';
+        wordIndex++;
+      }
+      result += '. ';
+    }
+    paragraphs.push(result.trim());
+  }
+  if (startLorem && paragraphs.length > 0) {
+    paragraphs[0] = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ' + paragraphs[0];
+  }
+  document.getElementById('loremOutput').textContent = paragraphs.join('\n\n');
 }
 
 // Init
