@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="极简在线工具箱 - JSON格式化、Base64编解码、URL编解码、时间戳转换、二维码生成、密码生成、Markdown预览等免费在线工具">
+<meta name="keywords" content="在线工具,JSON格式化,Base64编码,URL编码,时间戳,二维码生成,密码生成器,Markdown,正则表达式,文本对比">
+<title>ToolBox Pro - 极简在线工具箱</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #1e293b;
+  --text2: #64748b;
+  --border: #e2e8f0;
+  --primary: #3b82f6;
+  --primary-h: #2563eb;
+  --accent: #8b5cf6;
+  --red: #ef4444;
+  --green: #10b981;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.04);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height:1.6; min-height:100vh; }
+.header { background: var(--card); border-bottom:1px solid var(--border); padding:0 24px; height:60px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; backdrop-filter:blur(8px); }
+.header .logo { font-size:20px; font-weight:700; color:var(--primary); display:flex; align-items:center; gap:8px; cursor:pointer; }
+.header .logo span { background:linear-gradient(135deg, var(--primary), var(--accent)); color:#fff; width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; }
+.header .links { display:flex; gap:16px; align-items:center; }
+.header .links a { color:var(--text2); text-decoration:none; font-size:14px; transition:color .2s; }
+.header .links a:hover { color:var(--primary); }
+.container { max-width:1200px; margin:0 auto; padding:24px 20px; }
+.hero { text-align:center; padding:48px 20px 32px; }
+.hero h1 { font-size:36px; font-weight:800; background:linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero p { color:var(--text2); font-size:16px; margin-top:8px; max-width:600px; margin-left:auto; margin-right:auto; }
+.tool-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px; justify-content:center; }
+.tool-tab { padding:8px 16px; border-radius:20px; border:1px solid var(--border); background:var(--card); cursor:pointer; font-size:14px; color:var(--text2); transition:all .2s; white-space:nowrap; }
+.tool-tab:hover { border-color:var(--primary); color:var(--primary); }
+.tool-tab.active { background:var(--primary); color:#fff; border-color:var(--primary); }
+.tool-panel { display:none; background:var(--card); border-radius:var(--radius); padding:28px; box-shadow:var(--shadow); border:1px solid var(--border); }
+.tool-panel.active { display:block; }
+.tool-panel h2 { font-size:22px; margin-bottom:4px; }
+.tool-panel .desc { color:var(--text2); font-size:14px; margin-bottom:20px; }
+textarea, input[type="text"], input[type="number"], select { width:100%; padding:12px 16px; border:1px solid var(--border); border-radius:var(--radius-sm); font-size:14px; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; resize:vertical; background:var(--bg); transition:border .2s; }
+textarea:focus, input:focus, select:focus { outline:none; border-color:var(--primary); box-shadow:0 0 0 3px rgba(59,130,246,0.1); }
+textarea { min-height:160px; }
+.btn { padding:10px 20px; border-radius:var(--radius-sm); font-size:14px; font-weight:600; cursor:pointer; border:none; transition:all .2s; display:inline-flex; align-items:center; gap:6px; }
+.btn-primary { background:var(--primary); color:#fff; }
+.btn-primary:hover { background:var(--primary-h); transform:translateY(-1px); }
+.btn-secondary { background:var(--bg); color:var(--text); border:1px solid var(--border); }
+.btn-secondary:hover { background:var(--border); }
+.btn-danger { background:var(--red); color:#fff; }
+.btn-danger:hover { opacity:0.9; }
+.btn-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+.result-box { margin-top:12px; padding:16px; background:var(--bg); border-radius:var(--radius-sm); border:1px solid var(--border); min-height:60px; font-family:'SF Mono','Fira Code','Consolas',monospace; font-size:13px; word-break:break-all; white-space:pre-wrap; max-height:400px; overflow-y:auto; }
+.toast { position:fixed; top:20px; right:20px; padding:12px 20px; border-radius:var(--radius-sm); color:#fff; font-size:14px; z-index:9999; animation:slideIn .3s ease; pointer-events:none; }
+.toast.success { background:var(--green); }
+.toast.error { background:var(--red); }
+@keyframes slideIn { from { opacity:0; transform:translateX(40px); } to { opacity:1; transform:translateX(0); } }
+.footer { text-align:center; padding:40px 20px; color:var(--text2); font-size:12px; border-top:1px solid var(--border); margin-top:48px; }
+.footer a { color:var(--primary); text-decoration:none; }
+.inline-row { display:flex; gap:12px; align-items:center; }
+.inline-row > * { flex:1; }
+.inline-row .btn { flex:0 0 auto; }
+.color-preview { width:60px; height:60px; border-radius:var(--radius-sm); border:1px solid var(--border); flex:0 0 auto; }
+.color-values { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+.color-values input { font-family:'SF Mono','Consolas',monospace; }
+.password-options { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:12px; align-items:center; }
+.password-options label { display:flex; align-items:center; gap:6px; font-size:14px; cursor:pointer; }
+.output-pw { font-size:24px; font-weight:700; letter-spacing:2px; font-family:'SF Mono','Consolas',monospace; text-align:center; word-break:break-all; }
+.qr-container { display:flex; justify-content:center; margin:16px 0; }
+.qr-container canvas, .qr-container img { border-radius:var(--radius-sm); }
+.diff-container { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.diff-row { display:flex; gap:8px; align-items:flex-start; }
+.diff-row .diff-line { font-family:'SF Mono','Consolas',monospace; font-size:13px; padding:2px 8px; white-space:pre-wrap; }
+.diff-add { background:#d1fae5; color:#065f46; }
+.diff-del { background:#fee2e2; color:#991b1b; }
+.diff-same { color:var(--text2); }
+@media (max-width:768px) {
+  .hero h1 { font-size:24px; }
+  .tool-tabs { gap:4px; }
+  .tool-tab { padding:6px 12px; font-size:12px; }
+  .tool-panel { padding:16px; }
+  .diff-container { grid-template-columns:1fr; }
+  .header { padding:0 12px; }
+  .header .logo { font-size:16px; }
+}
+.markdown-body { font-size:14px; line-height:1.8; }
+.markdown-body h1,.markdown-body h2,.markdown-body h3 { margin-top:16px; margin-bottom:8px; }
+.markdown-body code { background:var(--bg); padding:2px 6px; border-radius:4px; font-size:13px; }
+.markdown-body pre { background:var(--bg); padding:16px; border-radius:var(--radius-sm); overflow-x:auto; }
+.markdown-body pre code { background:none; padding:0; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo" onclick="location.reload()"><span>🔧</span>ToolBox Pro</div>
+  <div class="links">
+    <a href="#" onclick="scrollToTools()">工具</a>
+    <a href="#" onclick="showToast('success','感谢支持！更多工具开发中')">关于</a>
+  </div>
+</header>
+
+<div class="container">
+  <div class="hero">
+    <h1>极简在线工具箱</h1>
+    <p>干净、快速、好用的在线工具集合。不做广告轰炸，专注工具本身。</p>
+  </div>
+
+  <div class="tool-tabs" id="toolTabs">
+    <button class="tool-tab active" data-tool="json">JSON格式化</button>
+    <button class="tool-tab" data-tool="base64">Base64编解码</button>
+    <button class="tool-tab" data-tool="url">URL编解码</button>
+    <button class="tool-tab" data-tool="timestamp">时间戳转换</button>
+    <button class="tool-tab" data-tool="qrcode">二维码生成</button>
+    <button class="tool-tab" data-tool="password">密码生成器</button>
+    <button class="tool-tab" data-tool="markdown">Markdown预览</button>
+    <button class="tool-tab" data-tool="color">颜色转换</button>
+    <button class="tool-tab" data-tool="regex">正则测试</button>
+    <button class="tool-tab" data-tool="diff">文本对比</button>
+  </div>
+
+  <!-- JSON Formatter -->
+  <div class="tool-panel active" id="panel-json">
+    <h2>JSON 格式化 / 验证</h2>
+    <p class="desc">粘贴JSON字符串，一键格式化或压缩。自动检测JSON格式是否正确。</p>
+    <textarea id="jsonInput" placeholder='{"name":"ToolBox","version":"1.0"}'></textarea>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="formatJSON()">格式化</button>
+      <button class="btn btn-secondary" onclick="compressJSON()">压缩</button>
+      <button class="btn btn-secondary" onclick="validateJSON()">验证</button>
+      <button class="btn btn-secondary" onclick="clearJSON()">清空</button>
+    </div>
+    <div class="result-box" id="jsonOutput"></div>
+  </div>
+
+  <!-- Base64 -->
+  <div class="tool-panel" id="panel-base64">
+    <h2>Base64 编解码</h2>
+    <p class="desc">支持文本的Base64编码和解码，支持中文。编码/解码结果自动显示。</p>
+    <textarea id="b64Input" placeholder="输入要编码或解码的内容..."></textarea>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="b64Encode()">编码 (Encode)</button>
+      <button class="btn btn-secondary" onclick="b64Decode()">解码 (Decode)</button>
+      <button class="btn btn-secondary" onclick="clearB64()">清空</button>
+    </div>
+    <div class="result-box" id="b64Output"></div>
+  </div>
+
+  <!-- URL Encode/Decode -->
+  <div class="tool-panel" id="panel-url">
+    <h2>URL 编解码</h2>
+    <p class="desc">对URL字符串进行编码(encodeURIComponent)或解码，适用于参数传递场景。</p>
+    <textarea id="urlInput" placeholder="输入要编码或解码的URL字符串..."></textarea>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="urlEncode()">编码 (Encode)</button>
+      <button class="btn btn-secondary" onclick="urlDecode()">解码 (Decode)</button>
+      <button class="btn btn-secondary" onclick="clearUrl()">清空</button>
+    </div>
+    <div class="result-box" id="urlOutput"></div>
+  </div>
+
+  <!-- Timestamp -->
+  <div class="tool-panel" id="panel-timestamp">
+    <h2>时间戳转换</h2>
+    <p class="desc">Unix时间戳（秒/毫秒）与日期时间的相互转换。支持实时显示当前时间戳。</p>
+    <div class="result-box" style="text-align:center;font-size:16px;" id="currentTimestamp"></div>
+    <div style="margin-top:16px;">
+      <p style="font-size:14px;color:var(--text2);margin-bottom:8px;">时间戳 → 日期</p>
+      <div class="inline-row">
+        <input type="text" id="tsInput" placeholder="输入时间戳，如 1700000000">
+        <select id="tsUnit" style="width:auto;flex:0 0 auto;">
+          <option value="s">秒 (10位)</option>
+          <option value="ms">毫秒 (13位)</option>
+        </select>
+        <button class="btn btn-primary" onclick="tsToDate()" style="flex:0 0 auto;">转换</button>
+      </div>
+      <div class="result-box" id="tsToDateOutput" style="margin-top:8px;"></div>
+    </div>
+    <div style="margin-top:16px;">
+      <p style="font-size:14px;color:var(--text2);margin-bottom:8px;">日期 → 时间戳</p>
+      <div class="inline-row">
+        <input type="text" id="dateInput" placeholder="如 2024-01-01 12:00:00">
+        <button class="btn btn-primary" onclick="dateToTs()" style="flex:0 0 auto;">转换</button>
+      </div>
+      <div class="result-box" id="dateToTsOutput" style="margin-top:8px;"></div>
+    </div>
+  </div>
+
+  <!-- QR Code -->
+  <div class="tool-panel" id="panel-qrcode">
+    <h2>二维码生成器</h2>
+    <p class="desc">输入文本或URL，即可生成二维码图片。支持调整尺寸大小。</p>
+    <textarea id="qrInput" placeholder="输入文本或链接地址..." style="min-height:80px;"></textarea>
+    <div class="inline-row" style="margin-top:12px;">
+      <div style="flex:1;">
+        <label style="font-size:14px;color:var(--text2);">尺寸:</label>
+        <input type="number" id="qrSize" value="256" min="64" max="1024" style="width:100px;">
+      </div>
+      <button class="btn btn-primary" onclick="generateQR()">生成二维码</button>
+      <button class="btn btn-secondary" onclick="downloadQR()">下载图片</button>
+    </div>
+    <div class="qr-container" id="qrContainer"></div>
+  </div>
+
+  <!-- Password Generator -->
+  <div class="tool-panel" id="panel-password">
+    <h2>密码生成器</h2>
+    <p class="desc">随机生成高强度密码，支持自定义长度和字符类型组合。</p>
+    <div class="password-options">
+      <label style="font-size:14px;">长度:</label>
+      <input type="number" id="pwLength" value="16" min="4" max="128" style="width:80px;flex:0 0 auto;">
+    </div>
+    <div class="password-options">
+      <label><input type="checkbox" id="pwUpper" checked> 大写字母 A-Z</label>
+      <label><input type="checkbox" id="pwLower" checked> 小写字母 a-z</label>
+      <label><input type="checkbox" id="pwDigits" checked> 数字 0-9</label>
+      <label><input type="checkbox" id="pwSymbols"> 特殊符号 !@#$</label>
+    </div>
+    <button class="btn btn-primary" onclick="generatePassword()">生成密码</button>
+    <div class="result-box output-pw" id="pwOutput" style="margin-top:12px;"></div>
+    <p style="font-size:12px;color:var(--text2);margin-top:8px;">密码仅在您的浏览器中生成，不会上传到服务器。</p>
+  </div>
+
+  <!-- Markdown Preview -->
+  <div class="tool-panel" id="panel-markdown">
+    <h2>Markdown 预览</h2>
+    <p class="desc">编写Markdown文本，实时预览渲染效果，支持GitHub Flavored Markdown。</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;" class="diff-container">
+      <div>
+        <p style="font-size:14px;color:var(--text2);margin-bottom:8px;">编辑</p>
+        <textarea id="mdInput" placeholder="# 标题&#10;&#10;**粗体** *斜体*&#10;&#10;- 列表项1&#10;- 列表项2&#10;&#10;`代码`" style="min-height:300px;"></textarea>
+      </div>
+      <div>
+        <p style="font-size:14px;color:var(--text2);margin-bottom:8px;">预览</p>
+        <div class="result-box markdown-body" id="mdPreview" style="min-height:300px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Color Converter -->
+  <div class="tool-panel" id="panel-color">
+    <h2>颜色转换器</h2>
+    <p class="desc">在HEX、RGB、HSL颜色格式之间转换。支持颜色选择器和实时预览。</p>
+    <div class="inline-row">
+      <input type="text" id="colorInput" placeholder="输入颜色值，如 #3b82f6 或 rgb(59,130,246)">
+      <div class="color-preview" id="colorPreview"></div>
+      <button class="btn btn-primary" onclick="convertColor()">转换</button>
+    </div>
+    <div class="color-values" id="colorResults"></div>
+  </div>
+
+  <!-- Regex Tester -->
+  <div class="tool-panel" id="panel-regex">
+    <h2>正则表达式测试</h2>
+    <p class="desc">在线测试正则表达式，支持标志位（g/i/m/s），高亮显示匹配结果。</p>
+    <div class="inline-row" style="margin-bottom:12px;">
+      <input type="text" id="regexPattern" placeholder="正则表达式，如 \d{4}-\d{2}-\d{2}" style="flex:2;">
+      <input type="text" id="regexFlags" placeholder="标志，如 gi" style="width:80px;flex:0 0 auto;">
+    </div>
+    <textarea id="regexInput" placeholder="输入测试文本..."></textarea>
+    <button class="btn btn-primary" onclick="testRegex()" style="margin-top:8px;">测试</button>
+    <div class="result-box" id="regexOutput" style="margin-top:8px;"></div>
+  </div>
+
+  <!-- Text Diff -->
+  <div class="tool-panel" id="panel-diff">
+    <h2>文本差异对比</h2>
+    <p class="desc">对比两段文本的差异，逐行显示新增、删除和相同的内容。</p>
+    <div class="diff-container">
+      <div>
+        <p style="font-size:14px;margin-bottom:8px;">原始文本</p>
+        <textarea id="diffOld" placeholder="粘贴原始文本..." style="min-height:200px;"></textarea>
+      </div>
+      <div>
+        <p style="font-size:14px;margin-bottom:8px;">新文本</p>
+        <textarea id="diffNew" placeholder="粘贴新文本..." style="min-height:200px;"></textarea>
+      </div>
+    </div>
+    <button class="btn btn-primary" style="margin-top:8px;" onclick="compareDiff()">对比差异</button>
+    <div class="result-box" id="diffOutput" style="margin-top:8px;"></div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <p>ToolBox Pro &copy; 2026 - 极简在线工具箱 | 所有工具均在浏览器本地运行，不会上传您的数据</p>
+  <p style="margin-top:4px;">Built with ❤️ by Claude Entrepreneur</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+<script>
+// --- Tool navigation ---
+const tabs = document.querySelectorAll('.tool-tab');
+const panels = document.querySelectorAll('.tool-panel');
+
+tabs.forEach(t => t.addEventListener('click', () => {
+  const tool = t.dataset.tool;
+  tabs.forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
+  panels.forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + tool).classList.add('active');
+  if (tool === 'timestamp') updateCurrentTimestamp();
+  if (tool === 'color') { document.getElementById('colorInput').value = '#3b82f6'; convertColor(); }
+}));
+
+function scrollToTools() {
+  document.getElementById('toolTabs').scrollIntoView({ behavior:'smooth' });
+}
+
+// --- Toast ---
+function showToast(type, msg) {
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2500);
+}
+
+function copyResult(id) {
+  const el = document.getElementById(id);
+  const text = el.textContent || el.value || '';
+  if (!text.trim()) { showToast('error', '没有可复制的内容'); return; }
+  navigator.clipboard.writeText(text).then(() => showToast('success', '已复制到剪贴板'));
+}
+
+// --- JSON ---
+function formatJSON() {
+  const input = document.getElementById('jsonInput').value.trim();
+  if (!input) { showToast('error','请先输入JSON内容'); return; }
+  try {
+    const obj = JSON.parse(input);
+    document.getElementById('jsonOutput').textContent = JSON.stringify(obj, null, 2);
+    document.getElementById('jsonOutput').style.color = 'var(--green)';
+  } catch(e) {
+    document.getElementById('jsonOutput').textContent = 'JSON 解析错误: ' + e.message;
+    document.getElementById('jsonOutput').style.color = 'var(--red)';
+  }
+}
+function compressJSON() {
+  const input = document.getElementById('jsonInput').value.trim();
+  if (!input) return;
+  try {
+    document.getElementById('jsonOutput').textContent = JSON.stringify(JSON.parse(input));
+    document.getElementById('jsonOutput').style.color = 'var(--text)';
+  } catch(e) {
+    document.getElementById('jsonOutput').textContent = '错误: ' + e.message;
+    document.getElementById('jsonOutput').style.color = 'var(--red)';
+  }
+}
+function validateJSON() {
+  const input = document.getElementById('jsonInput').value.trim();
+  if (!input) { showToast('error','请先输入JSON内容'); return; }
+  try {
+    JSON.parse(input);
+    document.getElementById('jsonOutput').textContent = '✓ JSON 格式正确';
+    document.getElementById('jsonOutput').style.color = 'var(--green)';
+  } catch(e) {
+    document.getElementById('jsonOutput').textContent = '✗ JSON 格式错误: ' + e.message;
+    document.getElementById('jsonOutput').style.color = 'var(--red)';
+  }
+}
+function clearJSON() {
+  document.getElementById('jsonInput').value = '';
+  document.getElementById('jsonOutput').textContent = '';
+}
+
+// --- Base64 ---
+function b64Encode() {
+  const input = document.getElementById('b64Input').value;
+  if (!input) return;
+  try {
+    document.getElementById('b64Output').textContent = btoa(unescape(encodeURIComponent(input)));
+    document.getElementById('b64Output').style.color = 'var(--text)';
+  } catch(e) {
+    document.getElementById('b64Output').textContent = '编码失败: ' + e.message;
+    document.getElementById('b64Output').style.color = 'var(--red)';
+  }
+}
+function b64Decode() {
+  const input = document.getElementById('b64Input').value.trim();
+  if (!input) return;
+  try {
+    document.getElementById('b64Output').textContent = decodeURIComponent(escape(atob(input)));
+    document.getElementById('b64Output').style.color = 'var(--text)';
+  } catch(e) {
+    document.getElementById('b64Output').textContent = '解码失败，请检查输入是否为有效的Base64';
+    document.getElementById('b64Output').style.color = 'var(--red)';
+  }
+}
+function clearB64() {
+  document.getElementById('b64Input').value = '';
+  document.getElementById('b64Output').textContent = '';
+}
+
+// --- URL ---
+function urlEncode() {
+  const input = document.getElementById('urlInput').value;
+  if (!input) return;
+  document.getElementById('urlOutput').textContent = encodeURIComponent(input);
+}
+function urlDecode() {
+  const input = document.getElementById('urlInput').value.trim();
+  if (!input) return;
+  try {
+    document.getElementById('urlOutput').textContent = decodeURIComponent(input);
+  } catch(e) {
+    document.getElementById('urlOutput').textContent = '解码失败: ' + e.message;
+    document.getElementById('urlOutput').style.color = 'var(--red)';
+  }
+}
+function clearUrl() {
+  document.getElementById('urlInput').value = '';
+  document.getElementById('urlOutput').textContent = '';
+}
+
+// --- Timestamp ---
+function updateCurrentTimestamp() {
+  const now = Math.floor(Date.now() / 1000);
+  const nowMs = Date.now();
+  const dt = new Date();
+  document.getElementById('currentTimestamp').innerHTML =
+    '<strong>当前时间:</strong> ' + dt.toLocaleString('zh-CN') +
+    '<br><strong>Unix时间戳(秒):</strong> ' + now +
+    ' &nbsp;|&nbsp; <strong>Unix时间戳(毫秒):</strong> ' + nowMs;
+}
+setInterval(() => { if (document.getElementById('panel-timestamp').classList.contains('active')) updateCurrentTimestamp(); }, 1000);
+updateCurrentTimestamp();
+
+function tsToDate() {
+  let ts = document.getElementById('tsInput').value.trim();
+  if (!ts) return;
+  const unit = document.getElementById('tsUnit').value;
+  if (unit === 's') ts = parseInt(ts) * 1000;
+  else ts = parseInt(ts);
+  if (isNaN(ts)) { document.getElementById('tsToDateOutput').textContent = '请输入有效的时间戳数字'; return; }
+  const d = new Date(ts);
+  document.getElementById('tsToDateOutput').textContent =
+    d.toLocaleString('zh-CN') + '\n' +
+    'UTC: ' + d.toUTCString() + '\n' +
+    'ISO: ' + d.toISOString();
+}
+function dateToTs() {
+  const input = document.getElementById('dateInput').value.trim();
+  if (!input) return;
+  const d = new Date(input);
+  if (isNaN(d.getTime())) { document.getElementById('dateToTsOutput').textContent = '无法解析日期，请使用格式如 2024-01-01 12:00:00'; return; }
+  document.getElementById('dateToTsOutput').textContent =
+    '时间戳(秒): ' + Math.floor(d.getTime() / 1000) + '\n' +
+    '时间戳(毫秒): ' + d.getTime();
+}
+
+// --- QR Code ---
+let currentQRDataUrl = '';
+function generateQR() {
+  const input = document.getElementById('qrInput').value.trim();
+  if (!input) { showToast('error','请输入文本或链接'); return; }
+  const size = parseInt(document.getElementById('qrSize').value) || 256;
+  const container = document.getElementById('qrContainer');
+  container.innerHTML = '';
+  const canvas = document.createElement('canvas');
+  QRCode.toCanvas(canvas, input, { width: size, margin: 2 }, (err) => {
+    if (err) { showToast('error','生成失败'); return; }
+    container.appendChild(canvas);
+    currentQRDataUrl = canvas.toDataURL('image/png');
+  });
+}
+function downloadQR() {
+  if (!currentQRDataUrl) { showToast('error','请先生成二维码'); return; }
+  const a = document.createElement('a');
+  a.href = currentQRDataUrl;
+  a.download = 'qrcode.png';
+  a.click();
+  showToast('success','下载成功');
+}
+
+// --- Password ---
+function generatePassword() {
+  const len = parseInt(document.getElementById('pwLength').value) || 16;
+  const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const lower = 'abcdefghijklmnopqrstuvwxyz';
+  const digits = '0123456789';
+  const symbols = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+  let chars = '';
+  if (document.getElementById('pwUpper').checked) chars += upper;
+  if (document.getElementById('pwLower').checked) chars += lower;
+  if (document.getElementById('pwDigits').checked) chars += digits;
+  if (document.getElementById('pwSymbols').checked) chars += symbols;
+  if (!chars) { showToast('error','请至少选择一种字符类型'); return; }
+  const array = new Uint32Array(len);
+  crypto.getRandomValues(array);
+  let pw = '';
+  for (let i = 0; i < len; i++) pw += chars[array[i] % chars.length];
+  // Ensure at least one of each selected type
+  let final = pw.split('');
+  let pos = 0;
+  if (document.getElementById('pwUpper').checked && !/[A-Z]/.test(final.join(''))) final[pos++] = upper[array[pos] % 26];
+  if (document.getElementById('pwLower').checked && !/[a-z]/.test(final.join(''))) final[pos++] = lower[array[pos] % 26];
+  if (document.getElementById('pwDigits').checked && !/[0-9]/.test(final.join(''))) final[pos++] = digits[array[pos] % 10];
+  if (document.getElementById('pwSymbols').checked && !/[^A-Za-z0-9]/.test(final.join(''))) final[pos++] = symbols[array[pos] % symbols.length];
+  // Shuffle
+  for (let i = final.length - 1; i > 0; i--) { const j = array[i] % (i+1); [final[i], final[j]] = [final[j], final[i]]; }
+  document.getElementById('pwOutput').textContent = final.join('');
+}
+
+// --- Markdown ---
+function updateMarkdown() {
+  const input = document.getElementById('mdInput').value;
+  document.getElementById('mdPreview').innerHTML = marked.parse(input || '');
+}
+document.getElementById('mdInput').addEventListener('input', updateMarkdown);
+updateMarkdown();
+
+// --- Color ---
+function convertColor() {
+  const input = document.getElementById('colorInput').value.trim();
+  if (!input) return;
+  const preview = document.getElementById('colorPreview');
+  const results = document.getElementById('colorResults');
+
+  // Try to create a temp element to parse the color
+  const div = document.createElement('div');
+  div.style.color = input;
+  document.body.appendChild(div);
+  const computed = getComputedStyle(div).color;
+  document.body.removeChild(div);
+
+  if (!computed || computed === 'rgba(0, 0, 0, 0)') {
+    // Maybe it's a named color or invalid
+    preview.style.backgroundColor = 'transparent';
+    results.innerHTML = '<p style="color:var(--red);font-size:14px;">无法解析颜色值，请使用HEX(#xxx)、RGB或标准颜色名称</p>';
+    return;
+  }
+
+  // Parse the computed RGB
+  const match = computed.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+  if (!match) { results.innerHTML = '<p style="color:var(--red);">解析失败</p>'; return; }
+  const r = parseInt(match[1]), g = parseInt(match[2]), b = parseInt(match[3]);
+
+  // RGB
+  const rgb = `rgb(${r}, ${g}, ${b})`;
+
+  // HEX
+  const hex = '#' + [r,g,b].map(x => x.toString(16).padStart(2,'0')).join('');
+
+  // HSL
+  const rr = r/255, gg = g/255, bb = b/255;
+  const max = Math.max(rr,gg,bb), min = Math.min(rr,gg,bb);
+  let h = 0, s = 0, l = (max+min)/2;
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d/(2-max-min) : d/(max+min);
+    switch(max) {
+      case rr: h = ((gg-bb)/d + (gg<bb?6:0)) / 6; break;
+      case gg: h = ((bb-rr)/d + 2) / 6; break;
+      case bb: h = ((rr-gg)/d + 4) / 6; break;
+    }
+  }
+  const hsl = `hsl(${Math.round(h*360)}, ${Math.round(s*100)}%, ${Math.round(l*100)}%)`;
+
+  preview.style.backgroundColor = rgb;
+  results.innerHTML =
+    `<div><label style="font-size:12px;color:var(--text2);">HEX</label><input value="${hex}" readonly onclick="this.select();document.execCommand('copy');showToast('success','HEX已复制')"></div>` +
+    `<div><label style="font-size:12px;color:var(--text2);">RGB</label><input value="${rgb}" readonly onclick="this.select();document.execCommand('copy');showToast('success','RGB已复制')"></div>` +
+    `<div><label style="font-size:12px;color:var(--text2);">HSL</label><input value="${hsl}" readonly onclick="this.select();document.execCommand('copy');showToast('success','HSL已复制')"></div>` +
+    `<div><label style="font-size:12px;color:var(--text2);">通道</label><input value="R:${r} G:${g} B:${b}" readonly></div>`;
+}
+
+// --- Regex ---
+function testRegex() {
+  const pattern = document.getElementById('regexPattern').value;
+  const flags = document.getElementById('regexFlags').value;
+  const input = document.getElementById('regexInput').value;
+  const output = document.getElementById('regexOutput');
+  if (!pattern) { output.textContent = '请输入正则表达式'; return; }
+  try {
+    const re = new RegExp(pattern, flags);
+    const matches = [...input.matchAll(re)];
+    if (matches.length === 0) {
+      output.innerHTML = '<span style="color:var(--text2);">没有匹配结果</span>';
+      return;
+    }
+    let html = `<p style="margin-bottom:8px;">找到 <strong>${matches.length}</strong> 个匹配:</p>`;
+    matches.forEach((m, i) => {
+      html += `<div style="margin-bottom:4px;padding:4px 8px;background:var(--bg);border-radius:4px;">`;
+      html += `<span style="color:var(--text2);">#${i+1}</span> `;
+      html += `<code>${escapeHTML(m[0])}</code>`;
+      if (m.index !== undefined) html += ` <span style="color:var(--text2);font-size:12px;">位置: ${m.index}</span>`;
+      if (m.groups) {
+        html += ` <span style="color:var(--text2);font-size:12px;">组: ${JSON.stringify(m.groups)}</span>`;
+      }
+      for (let j = 1; j < m.length; j++) {
+        if (m[j] !== undefined) html += ` <span style="color:var(--accent);font-size:12px;">$${j}: ${escapeHTML(m[j])}</span>`;
+      }
+      html += '</div>';
+    });
+    output.innerHTML = html;
+  } catch(e) {
+    output.innerHTML = `<span style="color:var(--red);">正则表达式错误: ${e.message}</span>`;
+  }
+}
+function escapeHTML(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// --- Diff ---
+function compareDiff() {
+  const oldText = document.getElementById('diffOld').value;
+  const newText = document.getElementById('diffNew').value;
+  const output = document.getElementById('diffOutput');
+  if (!oldText && !newText) { output.innerHTML = ''; return; }
+  const oldLines = oldText.split('\n');
+  const newLines = newText.split('\n');
+  const result = computeDiff(oldLines, newLines);
+  let html = '';
+  result.forEach(line => {
+    if (line.type === 'add') html += `<div class="diff-line diff-add">+ ${escapeHTML(line.text)}</div>`;
+    else if (line.type === 'del') html += `<div class="diff-line diff-del">- ${escapeHTML(line.text)}</div>`;
+    else html += `<div class="diff-line diff-same">&nbsp;&nbsp;${escapeHTML(line.text)}</div>`;
+  });
+  output.innerHTML = html;
+}
+
+function computeDiff(oldLines, newLines) {
+  // Simple LCS-based diff
+  const m = oldLines.length, n = newLines.length;
+  const dp = Array.from({length: m+1}, () => Array(n+1).fill(0));
+  for (let i = 1; i <= m; i++)
+    for (let j = 1; j <= n; j++)
+      dp[i][j] = oldLines[i-1] === newLines[j-1] ? dp[i-1][j-1]+1 : Math.max(dp[i-1][j], dp[i][j-1]);
+
+  const result = [];
+  let i = m, j = n;
+  const stack = [];
+  while (i > 0 || j > 0) {
+    if (i > 0 && j > 0 && oldLines[i-1] === newLines[j-1]) {
+      stack.push({type:'same', text:oldLines[i-1]});
+      i--; j--;
+    } else if (j > 0 && (i === 0 || dp[i][j-1] >= dp[i-1][j])) {
+      stack.push({type:'add', text:newLines[j-1]});
+      j--;
+    } else {
+      stack.push({type:'del', text:oldLines[i-1]});
+      i--;
+    }
+  }
+  while (stack.length) result.push(stack.pop());
+  return result;
+}
+
+// Init
+updateMarkdown();
+</script>
+
+<script>
+// robots meta - allow indexing
+</script>
+</body>
+</html>
