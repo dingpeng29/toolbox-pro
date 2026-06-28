@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="在线字数统计工具，实时统计中英文字数、字符数、行数、段落数、字节数。支持中文、英文、数字混合统计，完全免费，数据不上传。">
+<meta name="keywords" content="在线字数统计,字数统计,字符计数,字数计算器,在线字符统计,中文字数统计,英文字数统计">
+<meta property="og:title" content="在线字数统计 - ToolBox Pro">
+<meta property="og:description" content="实时统计文本字数、字符数、行数、段落数。支持中英文混合统计，浏览器本地运行。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dingpeng29.github.io/toolbox-pro/tools/word-counter.html">
+<title>在线字数统计 - 实时字符计数 | 中英文混合统计 | ToolBox Pro</title>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"在线字数统计","url":"https://dingpeng29.github.io/toolbox-pro/tools/word-counter.html","description":"在线字数统计工具，实时统计中英文字数、字符数、行数、段落数、字节数","applicationCategory":"Utility","operatingSystem":"All","inLanguage":"zh-CN"}
+</script>
+<style>
+:root {--bg:#f8fafc;--card:#fff;--text:#1e293b;--text2:#64748b;--border:#e2e8f0;--primary:#3b82f6;--primary-h:#2563eb;--accent:#8b5cf6;--shadow:0 1px 3px rgba(0,0,0,0.06);--radius:12px;--radius-sm:8px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;}
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.header .logo{font-size:20px;font-weight:700;color:var(--primary);text-decoration:none;}
+.header .back{color:var(--text2);text-decoration:none;font-size:14px;}
+.header .back:hover{color:var(--primary);}
+.container{max-width:800px;margin:0 auto;padding:24px 20px;}
+.hero{text-align:center;padding:32px 20px 24px;}
+.hero h1{font-size:28px;font-weight:800;color:var(--text);}
+.hero p{color:var(--text2);font-size:14px;margin-top:8px;}
+.card{background:var(--card);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);border:1px solid var(--border);}
+textarea{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:'SF Mono','Fira Code','Consolas',monospace;resize:vertical;background:var(--bg);min-height:200px;}
+textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(59,130,246,0.1);}
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:16px;}
+.stat{padding:16px;background:var(--bg);border-radius:var(--radius-sm);text-align:center;border:1px solid var(--border);}
+.stat .num{font-size:28px;font-weight:700;color:var(--primary);}
+.stat .label{font-size:12px;color:var(--text2);margin-top:4px;}
+.breadcrumb{margin-bottom:16px;font-size:13px;color:var(--text2);}
+.breadcrumb a{color:var(--primary);text-decoration:none;}
+.related{margin-top:32px;padding-top:24px;border-top:1px solid var(--border);}
+.related h3{font-size:16px;margin-bottom:12px;}
+.related .links{display:flex;flex-wrap:wrap;gap:8px;}
+.related .links a{padding:6px 14px;background:var(--bg);border-radius:20px;text-decoration:none;color:var(--text);font-size:13px;border:1px solid var(--border);transition:all .2s;}
+.related .links a:hover{border-color:var(--primary);color:var(--primary);}
+.footer{text-align:center;padding:32px 20px;color:var(--text2);font-size:12px;border-top:1px solid var(--border);margin-top:32px;}
+.footer a{color:var(--primary);text-decoration:none;}
+@media(max-width:640px){.hero h1{font-size:22px;}.stats{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<header class="header">
+<a href="/toolbox-pro/" class="logo">🔧 ToolBox Pro</a>
+<a href="/toolbox-pro/" class="back">← 返回工具箱</a>
+</header>
+<div class="container">
+<div class="breadcrumb"><a href="/toolbox-pro/">首页</a> / 在线字数统计</div>
+<div class="hero">
+<h1>在线字数统计 / 字符计数</h1>
+<p>实时统计文本的字符数、字数（中英文混合）、行数、段落数、字节数。所有数据在浏览器本地处理，不会上传到服务器。</p>
+</div>
+<div class="card">
+<textarea id="wcInput" placeholder="在此输入或粘贴文本内容...支持中文、英文、数字、符号混合统计"></textarea>
+<div class="stats" id="wcStats"></div>
+</div>
+<div class="related">
+<h3>更多免费工具</h3>
+<div class="links">
+<a href="/toolbox-pro/tools/json-formatter.html">JSON格式化</a>
+<a href="/toolbox-pro/tools/base64-encoder.html">Base64编解码</a>
+<a href="/toolbox-pro/tools/qrcode-generator.html">二维码生成</a>
+<a href="/toolbox-pro/tools/timestamp-converter.html">时间戳转换</a>
+<a href="/toolbox-pro/">查看全部20个工具 →</a>
+</div>
+</div>
+</div>
+<footer class="footer">
+<p>ToolBox Pro - 极简在线工具箱 | 所有工具均在浏览器本地运行，数据不上传</p>
+</footer>
+<script>
+const wcInput=document.getElementById('wcInput');
+wcInput.addEventListener('input',function(){
+const text=this.value;
+const chars=text.length;
+const charsNoSpace=text.replace(/\s/g,'').length;
+const cnChars=(text.match(/[一-鿿㐀-䶿]/g)||[]).length;
+const enWords=text.match(/[a-zA-Z]+/g)||[];
+const totalWords=cnChars+enWords.length;
+const lines=text?text.split('\n').length:0;
+const paras=text?text.split('\n').filter(l=>l.trim()).length:0;
+const bytes=new TextEncoder().encode(text).length;
+document.getElementById('wcStats').innerHTML=
+'<div class="stat"><div class="num">'+totalWords+'</div><div class="label">总字数（中+英）</div></div>'+
+'<div class="stat"><div class="num">'+chars+'</div><div class="label">总字符数</div></div>'+
+'<div class="stat"><div class="num">'+charsNoSpace+'</div><div class="label">字符数（不含空格）</div></div>'+
+'<div class="stat"><div class="num">'+cnChars+'</div><div class="label">中文字数</div></div>'+
+'<div class="stat"><div class="num">'+enWords.length+'</div><div class="label">英文单词数</div></div>'+
+'<div class="stat"><div class="num">'+lines+'</div><div class="label">行数</div></div>'+
+'<div class="stat"><div class="num">'+paras+'</div><div class="label">段落数</div></div>'+
+'<div class="stat"><div class="num">'+bytes+'</div><div class="label">字节数（UTF-8）</div></div>';
+});
+wcInput.dispatchEvent(new Event('input'));
+</script>
+<script>
+(function(){var bp=document.createElement('script');var curProtocol=window.location.protocol.split(':')[0];if(curProtocol==='https'){bp.src='https://zz.bdstatic.com/linksubmit/push.js';}else{bp.src='http://push.zhanzhang.baidu.com/push.js';}var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bp,s);})();
+</script>
+</body>
+</html>

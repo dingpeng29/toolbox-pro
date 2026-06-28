@@ -25,4 +25,9 @@
   <url><loc>https://dingpeng29.github.io/toolbox-pro/#numBase</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://dingpeng29.github.io/toolbox-pro/#imgBase64</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://dingpeng29.github.io/toolbox-pro/#caseConv</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/tools/word-counter.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/tools/json-formatter.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/tools/base64-encoder.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/tools/qrcode-generator.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/tools/timestamp-converter.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
 </urlset>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="在线时间戳转换工具，Unix时间戳与日期时间相互转换。支持秒/毫秒级时间戳，实时显示当前时间戳。免费在线Unix timestamp转换器。">
+<meta name="keywords" content="时间戳转换,在线时间戳,Unix时间戳,时间戳转日期,日期转时间戳,Unix timestamp,时间戳工具">
+<meta property="og:title" content="在线时间戳转换 - ToolBox Pro">
+<meta property="og:description" content="Unix时间戳与日期时间的相互转换，支持秒/毫秒，实时显示当前时间戳。">
+<meta property="og:url" content="https://dingpeng29.github.io/toolbox-pro/tools/timestamp-converter.html">
+<title>在线时间戳转换 - Unix时间戳转日期 | 日期转时间戳 | ToolBox Pro</title>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"在线时间戳转换","url":"https://dingpeng29.github.io/toolbox-pro/tools/timestamp-converter.html","description":"Unix时间戳与日期时间相互转换，支持秒和毫秒级时间戳，实时显示当前时间","applicationCategory":"Utility","operatingSystem":"All","inLanguage":"zh-CN"}
+</script>
+<style>
+:root {--bg:#f8fafc;--card:#fff;--text:#1e293b;--text2:#64748b;--border:#e2e8f0;--primary:#3b82f6;--primary-h:#2563eb;--red:#ef4444;--green:#10b981;--shadow:0 1px 3px rgba(0,0,0,0.06);--radius:12px;--radius-sm:8px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;}
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.header .logo{font-size:20px;font-weight:700;color:var(--primary);text-decoration:none;}
+.header .back{color:var(--text2);text-decoration:none;font-size:14px;}
+.header .back:hover{color:var(--primary);}
+.container{max-width:800px;margin:0 auto;padding:24px 20px;}
+.hero{text-align:center;padding:32px 20px 24px;}
+.hero h1{font-size:28px;font-weight:800;color:var(--text);}
+.hero p{color:var(--text2);font-size:14px;margin-top:8px;}
+.card{background:var(--card);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);border:1px solid var(--border);margin-bottom:20px;}
+input,select{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:'SF Mono','Fira Code','Consolas',monospace;background:var(--bg);}
+input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(59,130,246,0.1);}
+.btn{padding:10px 20px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .2s;display:inline-flex;align-items:center;gap:6px;}
+.btn-primary{background:var(--primary);color:#fff;}
+.btn-primary:hover{background:var(--primary-h);}
+.result-box{margin-top:12px;padding:16px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border);min-height:50px;font-family:'SF Mono','Fira Code','Consolas',monospace;font-size:13px;word-break:break-all;white-space:pre-wrap;}
+.inline-row{display:flex;gap:12px;align-items:center;margin-top:12px;}
+.inline-row>input,select{flex:1;}
+.inline-row .btn{flex:0 0 auto;}
+.inline-row select{width:auto;flex:0 0 auto;}
+.breadcrumb{margin-bottom:16px;font-size:13px;color:var(--text2);}
+.breadcrumb a{color:var(--primary);text-decoration:none;}
+.related{margin-top:32px;padding-top:24px;border-top:1px solid var(--border);}
+.related h3{font-size:16px;margin-bottom:12px;}
+.related .links{display:flex;flex-wrap:wrap;gap:8px;}
+.related .links a{padding:6px 14px;background:var(--bg);border-radius:20px;text-decoration:none;color:var(--text);font-size:13px;border:1px solid var(--border);transition:all .2s;}
+.related .links a:hover{border-color:var(--primary);color:var(--primary);}
+.footer{text-align:center;padding:32px 20px;color:var(--text2);font-size:12px;border-top:1px solid var(--border);margin-top:32px;}
+.footer a{color:var(--primary);text-decoration:none;}
+@media(max-width:640px){.hero h1{font-size:22px;}}
+</style>
+</head>
+<body>
+<header class="header">
+<a href="/toolbox-pro/" class="logo">🔧 ToolBox Pro</a>
+<a href="/toolbox-pro/" class="back">← 返回工具箱</a>
+</header>
+<div class="container">
+<div class="breadcrumb"><a href="/toolbox-pro/">首页</a> / 在线时间戳转换</div>
+<div class="hero">
+<h1>在线时间戳转换工具</h1>
+<p>Unix时间戳与日期时间的相互转换，支持秒和毫秒级时间戳。实时显示当前时间戳，完全免费。</p>
+</div>
+<div class="card" style="text-align:center;">
+<p style="font-size:14px;color:var(--text2);">当前时间戳（实时更新）</p>
+<div style="font-size:32px;font-weight:700;color:var(--primary);margin:8px 0;" id="liveTs"></div>
+<div style="font-size:13px;color:var(--text2);" id="liveDate"></div>
+</div>
+<div class="card">
+<h3 style="margin-bottom:12px;">时间戳 → 日期</h3>
+<div class="inline-row">
+<input type="text" id="tsInput" placeholder="输入时间戳，如 1700000000">
+<select id="tsUnit" style="width:auto;flex:0 0 auto;"><option value="s">秒(10位)</option><option value="ms">毫秒(13位)</option></select>
+<button class="btn btn-primary" onclick="tsToDate()">转换</button>
+</div>
+<div class="result-box" id="tsOutput"></div>
+</div>
+<div class="card">
+<h3 style="margin-bottom:12px;">日期 → 时间戳</h3>
+<div class="inline-row">
+<input type="text" id="dateInput" placeholder="如 2024-01-01 12:00:00">
+<button class="btn btn-primary" onclick="dateToTs()">转换</button>
+</div>
+<div class="result-box" id="dateOutput"></div>
+</div>
+<div class="related">
+<h3>更多免费工具</h3>
+<div class="links">
+<a href="/toolbox-pro/tools/word-counter.html">字数统计</a>
+<a href="/toolbox-pro/tools/json-formatter.html">JSON格式化</a>
+<a href="/toolbox-pro/tools/base64-encoder.html">Base64编解码</a>
+<a href="/toolbox-pro/tools/qrcode-generator.html">二维码生成</a>
+<a href="/toolbox-pro/">查看全部20个工具 →</a>
+</div>
+</div>
+</div>
+<footer class="footer"><p>ToolBox Pro - 极简在线工具箱 | 所有工具均在浏览器本地运行，数据不上传</p></footer>
+<script>
+function updateLive(){var n=Math.floor(Date.now()/1000);var ms=Date.now();var d=new Date();document.getElementById('liveTs').textContent=n;document.getElementById('liveDate').textContent='毫秒戳: '+ms+' | '+d.toLocaleString('zh-CN')+' | UTC: '+d.toUTCString();}
+updateLive();setInterval(updateLive,1000);
+function tsToDate(){var s=document.getElementById('tsInput').value.trim();if(!s)return;var u=document.getElementById('tsUnit').value;var t=u==='s'?parseInt(s)*1000:parseInt(s);if(isNaN(t)){document.getElementById('tsOutput').textContent='请输入有效的时间戳数字';return;}var d=new Date(t);document.getElementById('tsOutput').textContent=d.toLocaleString('zh-CN')+'\nUTC: '+d.toUTCString()+'\nISO: '+d.toISOString();}
+function dateToTs(){var s=document.getElementById('dateInput').value.trim();if(!s)return;var d=new Date(s);if(isNaN(d.getTime())){document.getElementById('dateOutput').textContent='无法解析日期，请使用格式如 2024-01-01 12:00:00';return;}document.getElementById('dateOutput').textContent='时间戳(秒): '+Math.floor(d.getTime()/1000)+'\n时间戳(毫秒): '+d.getTime();}
+</script>
+<script>
+(function(){var bp=document.createElement('script');var cp=window.location.protocol.split(':')[0];if(cp==='https'){bp.src='https://zz.bdstatic.com/linksubmit/push.js';}else{bp.src='http://push.zhanzhang.baidu.com/push.js';}var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bp,s);})();
+</script>
+</body>
+</html>
