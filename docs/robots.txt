@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://toolbox-pro.pages.dev/sitemap.xml
+Sitemap: https://dingpeng29.github.io/toolbox-pro/sitemap.xml
