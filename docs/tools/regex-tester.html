@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="在线正则表达式测试工具，支持JavaScript正则表达式在线测试。实时显示匹配结果、捕获组、匹配位置。支持g/i/m/s标志位，开发者必备。">
+<meta name="keywords" content="正则表达式测试,在线正则,正则测试工具,Regex tester,正则表达式在线,JavaScript正则,正则匹配">
+<meta property="og:title" content="在线正则表达式测试 - Regex Tester | ToolBox Pro">
+<meta property="og:description" content="在线测试JavaScript正则表达式，显示匹配结果、捕获组和位置，支持g/i/m/s标志。">
+<meta property="og:url" content="https://dingpeng29.github.io/toolbox-pro/tools/regex-tester.html">
+<title>在线正则表达式测试 - JavaScript Regex Tester | 匹配高亮 | ToolBox Pro</title>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"在线正则表达式测试","url":"https://dingpeng29.github.io/toolbox-pro/tools/regex-tester.html","description":"在线JavaScript正则表达式测试工具，显示匹配结果、捕获组和匹配位置","applicationCategory":"Utility","operatingSystem":"All","inLanguage":"zh-CN"}
+</script>
+<style>
+:root{--bg:#f8fafc;--card:#fff;--text:#1e293b;--text2:#64748b;--border:#e2e8f0;--primary:#3b82f6;--primary-h:#2563eb;--accent:#8b5cf6;--red:#ef4444;--green:#10b981;--shadow:0 1px 3px rgba(0,0,0,0.06);--radius:12px;--radius-sm:8px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;}
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.header .logo{font-size:20px;font-weight:700;color:var(--primary);text-decoration:none;}
+.header .back{color:var(--text2);text-decoration:none;font-size:14px;}.header .back:hover{color:var(--primary);}
+.container{max-width:800px;margin:0 auto;padding:24px 20px;}
+.hero{text-align:center;padding:32px 20px 24px;}
+.hero h1{font-size:28px;font-weight:800;color:var(--text);}
+.hero p{color:var(--text2);font-size:14px;margin-top:8px;}
+.card{background:var(--card);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);border:1px solid var(--border);}
+input,textarea{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:'SF Mono','Fira Code','Consolas',monospace;background:var(--bg);}
+textarea{min-height:160px;resize:vertical;}
+input:focus,textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(59,130,246,0.1);}
+.btn{padding:10px 20px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .2s;}
+.btn-primary{background:var(--primary);color:#fff;}.btn-primary:hover{background:var(--primary-h);}
+.inline-row{display:flex;gap:12px;align-items:center;margin-bottom:12px;}
+.inline-row input:first-child{flex:2;}
+.inline-row input:nth-child(2){width:80px;flex:0 0 auto;}
+.result-box{margin-top:12px;padding:16px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border);min-height:60px;font-family:'SF Mono','Fira Code','Consolas',monospace;font-size:13px;max-height:400px;overflow-y:auto;}
+.match-item{padding:6px 10px;margin-bottom:4px;background:var(--card);border-radius:4px;border:1px solid var(--border);}
+.match-item .pos{color:var(--text2);font-size:12px;}
+.match-item code{color:var(--primary);}
+.match-item .group{color:var(--accent);font-size:12px;}
+.breadcrumb{margin-bottom:16px;font-size:13px;color:var(--text2);}.breadcrumb a{color:var(--primary);text-decoration:none;}
+.related{margin-top:32px;padding-top:24px;border-top:1px solid var(--border);}
+.related h3{font-size:16px;margin-bottom:12px;}
+.related .links{display:flex;flex-wrap:wrap;gap:8px;}
+.related .links a{padding:6px 14px;background:var(--bg);border-radius:20px;text-decoration:none;color:var(--text);font-size:13px;border:1px solid var(--border);transition:all .2s;}
+.related .links a:hover{border-color:var(--primary);color:var(--primary);}
+.footer{text-align:center;padding:32px 20px;color:var(--text2);font-size:12px;border-top:1px solid var(--border);margin-top:32px;}.footer a{color:var(--primary);text-decoration:none;}
+@media(max-width:640px){.hero h1{font-size:22px;}}
+</style>
+</head>
+<body>
+<header class="header"><a href="/toolbox-pro/" class="logo">🔧 ToolBox Pro</a><a href="/toolbox-pro/" class="back">← 返回工具箱</a></header>
+<div class="container">
+<div class="breadcrumb"><a href="/toolbox-pro/">首页</a> / 在线正则表达式测试</div>
+<div class="hero"><h1>正则表达式在线测试</h1><p>在线测试JavaScript正则表达式，支持g/i/m/s标志位。实时显示匹配结果、捕获组和匹配位置。开发者必备工具。</p></div>
+<div class="card">
+<div class="inline-row">
+<input type="text" id="rePattern" placeholder="正则表达式，如 \d{4}-\d{2}-\d{2}">
+<input type="text" id="reFlags" placeholder="标志，如 gi">
+</div>
+<textarea id="reInput" placeholder="输入测试文本..."></textarea>
+<button class="btn btn-primary" onclick="test()" style="margin-top:8px;">测试匹配</button>
+<div class="result-box" id="reOutput"></div>
+<p style="font-size:12px;color:var(--text2);margin-top:8px;">常用正则：邮箱 \w+@\w+\.\w+ | 手机号 1[3-9]\d{9} | URL https?://[\w./-]+ | 中文 [一-龥]</p>
+</div>
+<div class="related"><h3>更多免费工具</h3><div class="links">
+<a href="/toolbox-pro/tools/word-counter.html">字数统计</a><a href="/toolbox-pro/tools/json-formatter.html">JSON格式化</a><a href="/toolbox-pro/tools/number-base-converter.html">进制转换</a><a href="/toolbox-pro/tools/password-generator.html">密码生成器</a><a href="/toolbox-pro/tools/css-formatter.html">CSS格式化</a><a href="/toolbox-pro/">查看全部20个工具 →</a>
+</div></div>
+</div>
+<footer class="footer"><p>ToolBox Pro - 极简在线工具箱 | 所有工具均在浏览器本地运行，数据不上传</p></footer>
+<script>
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function test(){
+var p=document.getElementById('rePattern').value;
+var f=document.getElementById('reFlags').value;
+var t=document.getElementById('reInput').value;
+var o=document.getElementById('reOutput');
+if(!p){o.textContent='请输入正则表达式';return;}
+try{
+var re=new RegExp(p,f);
+var m=[...t.matchAll(re)];
+if(m.length===0){o.innerHTML='<span style="color:var(--text2);">没有匹配结果</span>';return;}
+var h='<p style="margin-bottom:8px;">找到 <strong>'+m.length+'</strong> 个匹配:</p>';
+m.forEach(function(match,i){
+h+='<div class="match-item"><span class="pos">#'+(i+1)+(match.index!==undefined?' 位置:'+match.index:'')+' </span><code>'+esc(match[0])+'</code>';
+if(match.groups)h+=' <span class="group">具名组: '+JSON.stringify(match.groups)+'</span>';
+for(var j=1;j<match.length;j++){
+if(match[j]!==undefined)h+=' <span class="group">$'+j+': '+esc(match[j])+'</span>';
+}
+h+='</div>';
+});
+o.innerHTML=h;
+}catch(e){o.innerHTML='<span style="color:var(--red);">正则表达式错误: '+e.message+'</span>';}
+}
+</script>
+<script>(function(){var b=document.createElement('script');var c=window.location.protocol.split(':')[0];if(c==='https'){b.src='https://zz.bdstatic.com/linksubmit/push.js';}else{b.src='http://push.zhanzhang.baidu.com/push.js';}var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(b,s);})();</script>
+</body>
+</html>

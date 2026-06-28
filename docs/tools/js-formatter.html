@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="JavaScript在线格式化/压缩工具，JS/JSON代码美化与最小化。支持缩进排版、注释去除。前端开发必备在线工具，免费使用。">
+<meta name="keywords" content="JS格式化,JavaScript格式化,JS压缩,JS在线格式化,JavaScript Beautifier,JS Minifier,JS代码美化">
+<meta property="og:title" content="JS在线格式化/压缩 - JavaScript Beautifier | ToolBox Pro">
+<meta property="og:description" content="JavaScript/JSON代码格式化美化与压缩最小化，一键美化JS代码。">
+<meta property="og:url" content="https://dingpeng29.github.io/toolbox-pro/tools/js-formatter.html">
+<title>JS在线格式化/压缩 - JavaScript Beautifier Minifier | ToolBox Pro</title>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"JS在线格式化","url":"https://dingpeng29.github.io/toolbox-pro/tools/js-formatter.html","description":"JavaScript/JSON代码在线格式化美化与压缩工具","applicationCategory":"Utility","operatingSystem":"All","inLanguage":"zh-CN"}
+</script>
+<style>
+:root{--bg:#f8fafc;--card:#fff;--text:#1e293b;--text2:#64748b;--border:#e2e8f0;--primary:#3b82f6;--primary-h:#2563eb;--red:#ef4444;--green:#10b981;--shadow:0 1px 3px rgba(0,0,0,0.06);--radius:12px;--radius-sm:8px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;}
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.header .logo{font-size:20px;font-weight:700;color:var(--primary);text-decoration:none;}
+.header .back{color:var(--text2);text-decoration:none;font-size:14px;}.header .back:hover{color:var(--primary);}
+.container{max-width:800px;margin:0 auto;padding:24px 20px;}
+.hero{text-align:center;padding:32px 20px 24px;}
+.hero h1{font-size:28px;font-weight:800;color:var(--text);}
+.hero p{color:var(--text2);font-size:14px;margin-top:8px;}
+.card{background:var(--card);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);border:1px solid var(--border);}
+textarea{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:'SF Mono','Fira Code','Consolas',monospace;resize:vertical;background:var(--bg);min-height:200px;}
+textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(59,130,246,0.1);}
+.btn{padding:10px 20px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .2s;display:inline-flex;align-items:center;gap:6px;}
+.btn-primary{background:var(--primary);color:#fff;}.btn-primary:hover{background:var(--primary-h);}
+.btn-secondary{background:var(--bg);color:var(--text);border:1px solid var(--border);}.btn-secondary:hover{background:var(--border);}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.result-box{margin-top:12px;padding:16px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border);min-height:60px;font-family:'SF Mono','Fira Code','Consolas',monospace;font-size:13px;white-space:pre-wrap;max-height:400px;overflow-y:auto;}
+.breadcrumb{margin-bottom:16px;font-size:13px;color:var(--text2);}.breadcrumb a{color:var(--primary);text-decoration:none;}
+.related{margin-top:32px;padding-top:24px;border-top:1px solid var(--border);}
+.related h3{font-size:16px;margin-bottom:12px;}
+.related .links{display:flex;flex-wrap:wrap;gap:8px;}
+.related .links a{padding:6px 14px;background:var(--bg);border-radius:20px;text-decoration:none;color:var(--text);font-size:13px;border:1px solid var(--border);transition:all .2s;}
+.related .links a:hover{border-color:var(--primary);color:var(--primary);}
+.footer{text-align:center;padding:32px 20px;color:var(--text2);font-size:12px;border-top:1px solid var(--border);margin-top:32px;}.footer a{color:var(--primary);text-decoration:none;}
+@media(max-width:640px){.hero h1{font-size:22px;}}
+</style>
+</head>
+<body>
+<header class="header"><a href="/toolbox-pro/" class="logo">🔧 ToolBox Pro</a><a href="/toolbox-pro/" class="back">← 返回工具箱</a></header>
+<div class="container">
+<div class="breadcrumb"><a href="/toolbox-pro/">首页</a> / JS格式化/压缩</div>
+<div class="hero"><h1>JavaScript 在线格式化 / 压缩</h1><p>JavaScript和JSON代码格式化美化（Beautifier）与压缩最小化（Minifier）。支持缩进排版和注释去除，纯浏览器本地处理。</p></div>
+<div class="card">
+<textarea id="jsIn" placeholder="粘贴JavaScript代码...例如：function hello(){console.log('world');}"></textarea>
+<div class="btn-row">
+<button class="btn btn-primary" onclick="fmt()">格式化 (Beautify)</button>
+<button class="btn btn-secondary" onclick="compress()">压缩 (Minify)</button>
+<button class="btn btn-secondary" onclick="document.getElementById('jsIn').value='';document.getElementById('jsOut').textContent='';">清空</button>
+</div>
+<div class="result-box" id="jsOut"></div>
+</div>
+<div class="related"><h3>更多免费工具</h3><div class="links">
+<a href="/toolbox-pro/tools/css-formatter.html">CSS格式化</a><a href="/toolbox-pro/tools/json-formatter.html">JSON格式化</a><a href="/toolbox-pro/tools/regex-tester.html">正则测试</a><a href="/toolbox-pro/tools/number-base-converter.html">进制转换</a><a href="/toolbox-pro/tools/password-generator.html">密码生成器</a><a href="/toolbox-pro/">查看全部20个工具 →</a>
+</div></div>
+</div>
+<footer class="footer"><p>ToolBox Pro - 极简在线工具箱 | 所有工具均在浏览器本地运行，数据不上传</p></footer>
+<script>
+function fmt(){
+var s=document.getElementById('jsIn').value.trim();if(!s)return;
+try{
+// Try JSON first
+try{var obj=JSON.parse(s);document.getElementById('jsOut').textContent=JSON.stringify(obj,null,2);return;}catch(e){}
+// JS formatting
+s=s.replace(/([{}()\[\]])/g,'\n$1\n');
+s=s.replace(/;/g,';\n');
+var lines=s.split('\n'),indent=0,result=[];
+for(var i=0;i<lines.length;i++){
+var line=lines[i].trim();if(!line)continue;
+if(/^[}\)\]])/.test(line))indent=Math.max(0,indent-1);
+result.push('  '.repeat(indent)+line);
+if(/[({[\]]$/.test(line))indent++;
+}
+document.getElementById('jsOut').textContent=result.join('\n');
+}catch(e){document.getElementById('jsOut').textContent='格式化失败: '+e.message;}
+}
+function compress(){
+var s=document.getElementById('jsIn').value;if(!s)return;
+s=s.replace(/\/\/.*$/gm,'');
+s=s.replace(/\/\*[\s\S]*?\*\//g,'');
+s=s.split('\n').map(function(l){return l.trim();}).filter(function(l){return l;}).join('');
+s=s.replace(/\s*([=+\-*/{}();,:])\s*/g,'$1');
+document.getElementById('jsOut').textContent=s;
+}
+</script>
+<script>(function(){var b=document.createElement('script');var c=window.location.protocol.split(':')[0];if(c==='https'){b.src='https://zz.bdstatic.com/linksubmit/push.js';}else{b.src='http://push.zhanzhang.baidu.com/push.js';}var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(b,s);})();</script>
+</body>
+</html>
