@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="极简在线工具箱 - 14个免费在线工具：JSON格式化、Base64编解码、UUID生成、Hash计算、HTML实体、Lorem Ipsum、二维码生成等">
-<meta name="keywords" content="在线工具,JSON格式化,Base64编码,URL编码,时间戳,二维码生成,密码生成器,Markdown,正则表达式,文本对比,UUID生成,Hash计算,HTML实体,Lorem Ipsum,MD5,SHA256">
+<meta name="description" content="极简在线工具箱 - 20个免费在线工具：JSON格式化、Base64编解码、字数统计、进制转换、CSS格式化、JS格式化、图片转Base64、大小写转换、UUID生成、Hash计算等">
+<meta name="keywords" content="在线工具,JSON格式化,Base64编码,URL编码,时间戳,二维码生成,密码生成器,Markdown,正则表达式,文本对比,UUID生成,Hash计算,HTML实体,Lorem Ipsum,字数统计,字符计数,CSS格式化,JS格式化,进制转换,图片转Base64,大小写转换">
 <meta property="og:title" content="ToolBox Pro - 极简在线工具箱">
-<meta property="og:description" content="干净、快速、好用的在线工具集合。JSON格式化、Base64编解码、二维码生成等10个免费工具。">
+<meta property="og:description" content="干净、快速、好用的在线工具集合。JSON格式化、Base64编解码、字数统计、进制转换、CSS/JS格式化、二维码生成等20个免费工具。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dingpeng29.github.io/toolbox-pro/">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ToolBox Pro - 极简在线工具箱">
-<meta name="twitter:description" content="10个免费在线工具：JSON、Base64、二维码、正则等，干净快速无广告轰炸。">
-<title>ToolBox Pro - 极简在线工具箱 | JSON格式化 Base64 二维码 正则测试</title>
+<meta name="twitter:description" content="20个免费在线工具：JSON、Base64、字数统计、进制转换、CSS/JS格式化、二维码、正则等，干净快速无广告轰炸。">
+<title>ToolBox Pro - 极简在线工具箱 | JSON格式化 Base64 字数统计 进制转换 CSS格式化 大小写转换</title>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"ToolBox Pro","url":"https://dingpeng29.github.io/toolbox-pro/","description":"极简在线工具箱，提供JSON格式化、Base64编解码、UUID生成、Hash计算、HTML实体编解码、Lorem Ipsum生成等14个免费在线工具。","applicationCategory":"Utility","operatingSystem":"All","inLanguage":"zh-CN"}
+{"@context":"https://schema.org","@type":"WebApplication","name":"ToolBox Pro","url":"https://dingpeng29.github.io/toolbox-pro/","description":"极简在线工具箱，提供JSON格式化、Base64编解码、字数统计、进制转换、CSS/JS格式化、图片转Base64、大小写转换、UUID生成、Hash计算等20个免费在线工具。","applicationCategory":"Utility","operatingSystem":"All","inLanguage":"zh-CN"}
 </script>
 <style>
 :root {
@@ -117,7 +117,7 @@ textarea { min-height:160px; }
 <div class="container">
   <div class="hero">
     <h1>极简在线工具箱</h1>
-    <p>14个免费在线工具，干净、快速、好用。JSON格式化 · Base64 · UUID · Hash · 二维码 · 正则 · 文本对比 等。纯浏览器本地运行，数据不上传。</p>
+    <p>20个免费在线工具，干净、快速、好用。JSON格式化 · Base64 · 字数统计 · 进制转换 · CSS格式化 · 大小写转换 · 图片转Base64 等。纯浏览器本地运行，数据不上传。</p>
   </div>
 
   <div class="tool-tabs" id="toolTabs">
@@ -135,6 +135,12 @@ textarea { min-height:160px; }
     <button class="tool-tab" data-tool="hash">Hash计算</button>
     <button class="tool-tab" data-tool="htmlentity">HTML实体</button>
     <button class="tool-tab" data-tool="lorem">Lorem Ipsum</button>
+    <button class="tool-tab" data-tool="wordcount">字数统计</button>
+    <button class="tool-tab" data-tool="cssfmt">CSS格式化</button>
+    <button class="tool-tab" data-tool="jsfmt">JS格式化</button>
+    <button class="tool-tab" data-tool="numBase">进制转换</button>
+    <button class="tool-tab" data-tool="imgBase64">图片Base64</button>
+    <button class="tool-tab" data-tool="caseConv">大小写转换</button>
   </div>
 
   <!-- JSON Formatter -->
@@ -357,6 +363,95 @@ textarea { min-height:160px; }
       <input type="checkbox" id="loremStartWithLorem"> 以 "Lorem ipsum dolor sit amet" 开头
     </label>
     <div class="result-box" id="loremOutput"></div>
+  </div>
+
+  <!-- Word Counter -->
+  <div class="tool-panel" id="panel-wordcount">
+    <h2>字数统计 / 字符计数</h2>
+    <p class="desc">实时统计文本的字符数、字数（中文+英文）、行数、段落数。支持中英文混合统计。</p>
+    <textarea id="wcInput" placeholder="输入或粘贴文本内容..."></textarea>
+    <div class="color-values" id="wcStats" style="margin-top:12px;"></div>
+  </div>
+
+  <!-- CSS Formatter -->
+  <div class="tool-panel" id="panel-cssfmt">
+    <h2>CSS 格式化 / 压缩</h2>
+    <p class="desc">CSS代码格式化（美化）和压缩（最小化），支持缩进层级调整。</p>
+    <textarea id="cssInput" placeholder="粘贴CSS代码..."></textarea>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="formatCSS()">格式化</button>
+      <button class="btn btn-secondary" onclick="compressCSS()">压缩</button>
+      <button class="btn btn-secondary" onclick="document.getElementById('cssInput').value='';document.getElementById('cssOutput').textContent='';">清空</button>
+    </div>
+    <div class="result-box" id="cssOutput"></div>
+  </div>
+
+  <!-- JS Formatter -->
+  <div class="tool-panel" id="panel-jsfmt">
+    <h2>JavaScript 格式化 / 压缩</h2>
+    <p class="desc">JavaScript/JSON代码格式化美化与压缩。支持基本JS语法的缩进排版。</p>
+    <textarea id="jsInput" placeholder="粘贴JavaScript代码..."></textarea>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="formatJS()">格式化</button>
+      <button class="btn btn-secondary" onclick="compressJS()">压缩</button>
+      <button class="btn btn-secondary" onclick="document.getElementById('jsInput').value='';document.getElementById('jsOutput').textContent='';">清空</button>
+    </div>
+    <div class="result-box" id="jsOutput"></div>
+  </div>
+
+  <!-- Number Base Converter -->
+  <div class="tool-panel" id="panel-numBase">
+    <h2>进制转换器</h2>
+    <p class="desc">在二进制、八进制、十进制、十六进制之间自由转换。输入任意进制的数值即可查看所有进制结果。</p>
+    <div class="inline-row" style="margin-bottom:12px;">
+      <input type="text" id="numBaseInput" placeholder="输入数值，如 255 或 FF">
+      <select id="numBaseFrom" style="width:auto;flex:0 0 auto;">
+        <option value="10">十进制 (DEC)</option>
+        <option value="16">十六进制 (HEX)</option>
+        <option value="2">二进制 (BIN)</option>
+        <option value="8">八进制 (OCT)</option>
+      </select>
+      <button class="btn btn-primary" onclick="convertNumBase()">转换</button>
+    </div>
+    <div class="color-values" id="numBaseResults"></div>
+  </div>
+
+  <!-- Image to Base64 -->
+  <div class="tool-panel" id="panel-imgBase64">
+    <h2>图片 ⇄ Base64 转换</h2>
+    <p class="desc">将图片文件转换为Base64编码字符串，或将Base64字符串还原为图片预览。支持PNG/JPG/GIF/WebP等格式。</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;" class="diff-container">
+      <div>
+        <p style="font-size:14px;color:var(--text2);margin-bottom:8px;">图片 → Base64</p>
+        <input type="file" id="imgFileInput" accept="image/*" onchange="imageToBase64()" style="padding:8px;font-family:inherit;">
+        <div id="imgPreview" style="margin-top:12px;text-align:center;"></div>
+      </div>
+      <div>
+        <p style="font-size:14px;color:var(--text2);margin-bottom:8px;">Base64 → 图片</p>
+        <textarea id="b64ImageInput" placeholder="粘贴Base64编码字符串..." style="min-height:120px;"></textarea>
+        <button class="btn btn-primary" onclick="base64ToImage()" style="margin-top:8px;">预览图片</button>
+        <div id="b64ImagePreview" style="margin-top:12px;text-align:center;"></div>
+      </div>
+    </div>
+    <div class="result-box" id="imgBase64Output" style="margin-top:12px;max-height:120px;font-size:11px;"></div>
+  </div>
+
+  <!-- Case Converter -->
+  <div class="tool-panel" id="panel-caseConv">
+    <h2>大小写转换器</h2>
+    <p class="desc">文本大小写转换：大写、小写、首字母大写、句首大写、大小写反转、camelCase、snake_case、kebab-case。</p>
+    <textarea id="caseInput" placeholder="输入要转换的文本..."></textarea>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="convertCase('upper')">全大写 UPPER</button>
+      <button class="btn btn-secondary" onclick="convertCase('lower')">全小写 lower</button>
+      <button class="btn btn-secondary" onclick="convertCase('title')">首字母大写 Title</button>
+      <button class="btn btn-secondary" onclick="convertCase('sentence')">句首大写</button>
+      <button class="btn btn-secondary" onclick="convertCase('invert')">大小写反转</button>
+      <button class="btn btn-secondary" onclick="convertCase('camel')">camelCase</button>
+      <button class="btn btn-secondary" onclick="convertCase('snake')">snake_case</button>
+      <button class="btn btn-secondary" onclick="convertCase('kebab')">kebab-case</button>
+    </div>
+    <div class="result-box" id="caseOutput" style="margin-top:12px;"></div>
   </div>
 
 </div>
@@ -873,7 +968,210 @@ function generateLorem() {
   document.getElementById('loremOutput').textContent = paragraphs.join('\n\n');
 }
 
+// --- Word Count ---
+document.getElementById('wcInput').addEventListener('input', updateWordCount);
+function updateWordCount() {
+  const text = document.getElementById('wcInput').value;
+  const charCount = text.length;
+  const charNoSpace = text.replace(/\s/g, '').length;
+  const cnChars = (text.match(/[一-鿿㐀-䶿]/g) || []).length;
+  const enWords = text.match(/[a-zA-Z]+/g) || [];
+  // Chinese "words" - each character is roughly a word, plus English words
+  const totalWords = cnChars + enWords.length;
+  const lines = text ? text.split('\n').length : 0;
+  const paragraphs = text ? text.split('\n').filter(l => l.trim()).length : 0;
+  const bytes = new TextEncoder().encode(text).length;
+  document.getElementById('wcStats').innerHTML =
+    `<div><label style="font-size:12px;color:var(--text2);">总字符数</label><input value="${charCount}" readonly></div>` +
+    `<div><label style="font-size:12px;color:var(--text2);">字符数(不含空格)</label><input value="${charNoSpace}" readonly></div>` +
+    `<div><label style="font-size:12px;color:var(--text2);">中文字数</label><input value="${cnChars}" readonly></div>` +
+    `<div><label style="font-size:12px;color:var(--text2);">总字数(中+英)</label><input value="${totalWords}" readonly></div>` +
+    `<div><label style="font-size:12px;color:var(--text2);">英文单词数</label><input value="${enWords.length}" readonly></div>` +
+    `<div><label style="font-size:12px;color:var(--text2);">行数</label><input value="${lines}" readonly></div>` +
+    `<div><label style="font-size:12px;color:var(--text2);">段落数</label><input value="${paragraphs}" readonly></div>` +
+    `<div><label style="font-size:12px;color:var(--text2);">字节数(UTF-8)</label><input value="${bytes}" readonly></div>`;
+}
+
+// --- CSS Formatter ---
+function formatCSS() {
+  const input = document.getElementById('cssInput').value.trim();
+  if (!input) return;
+  try {
+    let css = input.replace(/\/\*[\s\S]*?\*\//g, ''); // remove comments
+    css = css.replace(/\s*{\s*/g, ' {\n  ');
+    css = css.replace(/\s*}\s*/g, '\n}\n');
+    css = css.replace(/;\s*/g, ';\n  ');
+    css = css.replace(/\n\s*\n/g, '\n');
+    // Fix indentation
+    const lines = css.split('\n');
+    let indent = 0;
+    const result = [];
+    for (let line of lines) {
+      line = line.trim();
+      if (!line) continue;
+      if (line === '}') indent = Math.max(0, indent - 1);
+      result.push('  '.repeat(indent) + line);
+      if (line.endsWith('{')) indent++;
+    }
+    document.getElementById('cssOutput').textContent = result.join('\n');
+  } catch(e) {
+    document.getElementById('cssOutput').textContent = '格式化失败: ' + e.message;
+  }
+}
+function compressCSS() {
+  const input = document.getElementById('cssInput').value;
+  if (!input) return;
+  let css = input.replace(/\/\*[\s\S]*?\*\//g, '');
+  css = css.replace(/\s+/g, ' ');
+  css = css.replace(/\s*{\s*/g, '{');
+  css = css.replace(/\s*}\s*/g, '}');
+  css = css.replace(/\s*;\s*/g, ';');
+  css = css.replace(/\s*:\s*/g, ':');
+  css = css.replace(/\s*,\s*/g, ',');
+  css = css.replace(/;}/g, '}');
+  document.getElementById('cssOutput').textContent = css.trim();
+}
+
+// --- JS Formatter ---
+function formatJS() {
+  const input = document.getElementById('jsInput').value.trim();
+  if (!input) return;
+  try {
+    let js = input;
+    // First try JSON
+    try {
+      const obj = JSON.parse(js);
+      document.getElementById('jsOutput').textContent = JSON.stringify(obj, null, 2);
+      return;
+    } catch(e) {}
+    // Simple JS formatting: add newlines and indentation based on braces
+    js = js.replace(/([{}()\[\]])/g, '\n$1\n');
+    js = js.replace(/;/g, ';\n');
+    const lines = js.split('\n');
+    let indent = 0;
+    const result = [];
+    for (let line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) continue;
+      if (/^[}\)\]])/.test(trimmed)) indent = Math.max(0, indent - 1);
+      result.push('  '.repeat(indent) + trimmed);
+      if (/[({[\]]$/.test(trimmed)) indent++;
+      if (trimmed === '}' || trimmed === ']' || trimmed === ')') {
+        // don't increment after close
+      }
+    }
+    document.getElementById('jsOutput').textContent = result.join('\n');
+  } catch(e) {
+    document.getElementById('jsOutput').textContent = '格式化失败: ' + e.message;
+  }
+}
+function compressJS() {
+  const input = document.getElementById('jsInput').value;
+  if (!input) return;
+  let js = input;
+  // Remove single-line comments
+  js = js.replace(/\/\/.*$/gm, '');
+  // Remove multi-line comments
+  js = js.replace(/\/\*[\s\S]*?\*\//g, '');
+  // Collapse whitespace (but preserve strings)
+  // Simple approach: just remove leading/trailing spaces and compress multiple spaces
+  js = js.split('\n').map(l => l.trim()).filter(l => l).join('');
+  // Remove spaces around operators
+  js = js.replace(/\s*([=+\-*/{}();,:])\s*/g, '$1');
+  document.getElementById('jsOutput').textContent = js;
+}
+
+// --- Number Base Converter ---
+function convertNumBase() {
+  const input = document.getElementById('numBaseInput').value.trim();
+  const from = parseInt(document.getElementById('numBaseFrom').value);
+  if (!input) return;
+  try {
+    let decimal;
+    if (from === 10) decimal = parseInt(input, 10);
+    else decimal = parseInt(input, from);
+    if (isNaN(decimal)) throw new Error('无效输入');
+    document.getElementById('numBaseResults').innerHTML =
+      `<div><label style="font-size:12px;color:var(--text2);">二进制 (BIN)</label><input value="${decimal.toString(2)}" readonly onclick="this.select();copyText(this.value)"></div>` +
+      `<div><label style="font-size:12px;color:var(--text2);">八进制 (OCT)</label><input value="${decimal.toString(8)}" readonly onclick="this.select();copyText(this.value)"></div>` +
+      `<div><label style="font-size:12px;color:var(--text2);">十进制 (DEC)</label><input value="${decimal.toString(10)}" readonly onclick="this.select();copyText(this.value)"></div>` +
+      `<div><label style="font-size:12px;color:var(--text2);">十六进制 (HEX)</label><input value="${decimal.toString(16).toUpperCase()}" readonly onclick="this.select();copyText(this.value)"></div>`;
+  } catch(e) {
+    document.getElementById('numBaseResults').innerHTML = '<p style="color:var(--red);font-size:14px;">请输入有效的数值</p>';
+  }
+}
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(() => showToast('success', '已复制'));
+}
+
+// --- Image to Base64 ---
+function imageToBase64() {
+  const file = document.getElementById('imgFileInput').files[0];
+  if (!file) return;
+  if (file.size > 10 * 1024 * 1024) { showToast('error', '图片大小不能超过10MB'); return; }
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const b64 = e.target.result;
+    document.getElementById('imgBase64Output').textContent = b64;
+    // Show preview
+    document.getElementById('imgPreview').innerHTML = `<img src="${b64}" style="max-width:100%;max-height:200px;border-radius:8px;"><p style="font-size:12px;color:var(--text2);margin-top:4px;">${file.name} (${(file.size/1024).toFixed(1)} KB)</p>`;
+    showToast('success', '转换成功，Base64已生成');
+  };
+  reader.onerror = function() { showToast('error', '读取文件失败'); };
+  reader.readAsDataURL(file);
+}
+function base64ToImage() {
+  const input = document.getElementById('b64ImageInput').value.trim();
+  if (!input) { showToast('error', '请输入Base64编码'); return; }
+  const preview = document.getElementById('b64ImagePreview');
+  const img = document.createElement('img');
+  img.onload = function() {
+    preview.innerHTML = '';
+    preview.appendChild(img);
+    img.style.maxWidth = '100%';
+    img.style.maxHeight = '200px';
+    img.style.borderRadius = '8px';
+  };
+  img.onerror = function() {
+    preview.innerHTML = '<p style="color:var(--red);">无法解析Base64图片，请检查输入</p>';
+  };
+  img.src = input.startsWith('data:') ? input : 'data:image/png;base64,' + input;
+}
+
+// --- Case Converter ---
+function convertCase(type) {
+  const input = document.getElementById('caseInput').value;
+  if (!input) return;
+  let result = '';
+  switch(type) {
+    case 'upper': result = input.toUpperCase(); break;
+    case 'lower': result = input.toLowerCase(); break;
+    case 'title':
+      result = input.replace(/\b\w/g, c => c.toUpperCase());
+      break;
+    case 'sentence':
+      result = input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
+      result = result.replace(/([.!?]\s+)([a-z])/g, (_, p, c) => p + c.toUpperCase());
+      break;
+    case 'invert':
+      result = input.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('');
+      break;
+    case 'camel':
+      result = input.replace(/[^a-zA-Z0-9]+(.)/g, (_, c) => c.toUpperCase());
+      result = result.charAt(0).toLowerCase() + result.slice(1);
+      break;
+    case 'snake':
+      result = input.replace(/([A-Z])/g, '_$1').toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
+      break;
+    case 'kebab':
+      result = input.replace(/([A-Z])/g, '-$1').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      break;
+  }
+  document.getElementById('caseOutput').textContent = result;
+}
+
 // Init
+updateWordCount();
 updateMarkdown();
 </script>
 
