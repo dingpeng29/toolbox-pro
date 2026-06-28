@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Markdown在线预览编辑器，支持GitHub Flavored Markdown。实时编辑实时预览，开发者写文档、README必备工具。免费在线Markdown编辑器。">
+<meta name="keywords" content="Markdown预览,Markdown编辑器,在线Markdown,Markdown在线,Markdown to HTML,GFM,Markdown渲染">
+<meta property="og:title" content="Markdown在线预览编辑器 - GFM | ToolBox Pro">
+<meta property="og:description" content="在线Markdown编辑器，支持GitHub Flavored Markdown，实时编辑实时预览。">
+<meta property="og:url" content="https://dingpeng29.github.io/toolbox-pro/tools/markdown-preview.html">
+<title>Markdown在线预览编辑器 - GitHub Flavored Markdown | ToolBox Pro</title>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Markdown在线预览","url":"https://dingpeng29.github.io/toolbox-pro/tools/markdown-preview.html","description":"在线Markdown编辑器，支持GFM，实时编辑实时预览","applicationCategory":"Utility","operatingSystem":"All","inLanguage":"zh-CN"}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+<style>
+:root{--bg:#f8fafc;--card:#fff;--text:#1e293b;--text2:#64748b;--border:#e2e8f0;--primary:#3b82f6;--primary-h:#2563eb;--shadow:0 1px 3px rgba(0,0,0,0.06);--radius:12px;--radius-sm:8px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;}
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.header .logo{font-size:20px;font-weight:700;color:var(--primary);text-decoration:none;}
+.header .back{color:var(--text2);text-decoration:none;font-size:14px;}.header .back:hover{color:var(--primary);}
+.container{max-width:1000px;margin:0 auto;padding:24px 20px;}
+.hero{text-align:center;padding:32px 20px 24px;}
+.hero h1{font-size:28px;font-weight:800;color:var(--text);}
+.hero p{color:var(--text2);font-size:14px;margin-top:8px;}
+.editor-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.editor-wrap textarea{width:100%;padding:16px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:'SF Mono','Fira Code','Consolas',monospace;resize:vertical;background:var(--card);min-height:400px;}
+.editor-wrap textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(59,130,246,0.1);}
+.preview-pane{padding:16px;background:var(--card);border-radius:var(--radius-sm);border:1px solid var(--border);min-height:400px;overflow-y:auto;}
+.preview-pane h1,.preview-pane h2,.preview-pane h3{margin-top:16px;margin-bottom:8px;}
+.preview-pane code{background:var(--bg);padding:2px 6px;border-radius:4px;font-size:13px;}
+.preview-pane pre{background:var(--bg);padding:16px;border-radius:var(--radius-sm);overflow-x:auto;}
+.preview-pane pre code{background:none;padding:0;}
+.preview-pane table{border-collapse:collapse;width:100%;margin:8px 0;}
+.preview-pane th,.preview-pane td{border:1px solid var(--border);padding:8px 12px;text-align:left;}
+.preview-pane th{background:var(--bg);}
+.preview-pane blockquote{border-left:4px solid var(--primary);padding-left:16px;margin:8px 0;color:var(--text2);}
+.pane-label{font-size:14px;color:var(--text2);margin-bottom:8px;font-weight:600;}
+.breadcrumb{margin-bottom:16px;font-size:13px;color:var(--text2);}.breadcrumb a{color:var(--primary);text-decoration:none;}
+.related{margin-top:32px;padding-top:24px;border-top:1px solid var(--border);}
+.related h3{font-size:16px;margin-bottom:12px;}
+.related .links{display:flex;flex-wrap:wrap;gap:8px;}
+.related .links a{padding:6px 14px;background:var(--bg);border-radius:20px;text-decoration:none;color:var(--text);font-size:13px;border:1px solid var(--border);transition:all .2s;}
+.related .links a:hover{border-color:var(--primary);color:var(--primary);}
+.footer{text-align:center;padding:32px 20px;color:var(--text2);font-size:12px;border-top:1px solid var(--border);margin-top:32px;}.footer a{color:var(--primary);text-decoration:none;}
+@media(max-width:700px){.editor-wrap{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<header class="header"><a href="/toolbox-pro/" class="logo">🔧 ToolBox Pro</a><a href="/toolbox-pro/" class="back">← 返回工具箱</a></header>
+<div class="container">
+<div class="breadcrumb"><a href="/toolbox-pro/">首页</a> / Markdown在线预览</div>
+<div class="hero"><h1>Markdown 在线预览编辑器</h1><p>实时编辑、实时预览Markdown文本。支持GitHub Flavored Markdown，写文档、README的必备工具。</p></div>
+<div class="editor-wrap">
+<div><div class="pane-label">✏️ 编辑</div><textarea id="mdInput" placeholder="# 标题&#10;&#10;**粗体** *斜体*&#10;&#10;- 列表项1&#10;- 列表项2&#10;&#10;> 引用文字&#10;&#10;`行内代码`&#10;&#10;```&#10;代码块&#10;```&#10;&#10;[链接](https://example.com)&#10;![图片](https://example.com/img.png)&#10;&#10;| 表头1 | 表头2 |&#10;|------|------|&#10;| 内容1 | 内容2 |"></textarea></div>
+<div><div class="pane-label">👁️ 预览</div><div class="preview-pane" id="mdPreview"></div></div>
+</div>
+<div class="related"><h3>更多免费工具</h3><div class="links">
+<a href="/toolbox-pro/tools/json-formatter.html">JSON格式化</a><a href="/toolbox-pro/tools/css-formatter.html">CSS格式化</a><a href="/toolbox-pro/tools/js-formatter.html">JS格式化</a><a href="/toolbox-pro/tools/regex-tester.html">正则测试</a><a href="/toolbox-pro/tools/word-counter.html">字数统计</a><a href="/toolbox-pro/">查看全部20个工具 →</a>
+</div></div>
+</div>
+<footer class="footer"><p>ToolBox Pro - 极简在线工具箱 | 所有工具均在浏览器本地运行，数据不上传</p></footer>
+<script>
+var mdIn=document.getElementById('mdIn'),mdPrev=document.getElementById('mdPreview');
+mdIn.addEventListener('input',function(){mdPrev.innerHTML=marked.parse(mdIn.value||'');});
+mdPrev.innerHTML=marked.parse(mdIn.value||'');
+</script>
+<script>(function(){var b=document.createElement('script');var c=window.location.protocol.split(':')[0];if(c==='https'){b.src='https://zz.bdstatic.com/linksubmit/push.js';}else{b.src='http://push.zhanzhang.baidu.com/push.js';}var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(b,s);})();</script>
+</body>
+</html>
