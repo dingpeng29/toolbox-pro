@@ -5,29 +5,24 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  <url>
-    <loc>https://dingpeng29.github.io/toolbox-pro/#json</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dingpeng29.github.io/toolbox-pro/#base64</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://dingpeng29.github.io/toolbox-pro/#qrcode</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://dingpeng29.github.io/toolbox-pro/#uuid</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://dingpeng29.github.io/toolbox-pro/#hash</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#json</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#base64</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#url</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#timestamp</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#qrcode</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#password</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#markdown</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#color</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#regex</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#diff</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#uuid</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#hash</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#htmlentity</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#lorem</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#wordcount</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#cssfmt</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#jsfmt</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#numBase</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#imgBase64</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://dingpeng29.github.io/toolbox-pro/#caseConv</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>
