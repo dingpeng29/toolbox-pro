@@ -102,6 +102,13 @@ textarea { min-height:160px; }
 .markdown-body code { background:var(--bg); padding:2px 6px; border-radius:4px; font-size:13px; }
 .markdown-body pre { background:var(--bg); padding:16px; border-radius:var(--radius-sm); overflow-x:auto; }
 .markdown-body pre code { background:none; padding:0; }
+
+.related-tools{margin-top:20px;}
+.related-tools h2{font-size:16px;margin-bottom:12px;}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
+.related-card{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--card);border-radius:var(--radius-sm);text-decoration:none;color:var(--text);border:1px solid var(--border);font-size:13px;transition:all .2s;}
+.related-card:hover{border-color:var(--primary);background:#eff6ff;}
+.related-card .ricon{font-size:18px;}
 </style>
 </head>
 <body>
@@ -497,6 +504,16 @@ textarea { min-height:160px; }
 </div>
 </div>
 
+
+<div class="related-tools">
+<h2>🧰 相关工具推荐</h2>
+<div class="related-grid">
+<a class="related-card" href="/pdf-toolkit/"><span class="ricon">📄</span><span>PDF Toolkit</span></a>
+<a class="related-card" href="/image-compressor/"><span class="ricon">🖼️</span><span>图片压缩工具</span></a>
+<a class="related-card" href="/password-generator/"><span class="ricon">🔐</span><span>密码生成器</span></a>
+<a class="related-card" href="/yaml-converter/"><span class="ricon">🔄</span><span>YAML↔JSON</span></a>
+</div>
+</div>
 <footer class="footer">
   <p>ToolBox Pro &copy; 2026 - 极简在线工具箱 | 所有工具均在浏览器本地运行，不会上传您的数据</p>
   <p style="margin-top:4px;">Built with ❤️ by Claude Entrepreneur | <a href="https://github.com/dingpeng29/toolbox-pro" target="_blank">GitHub</a> | <a href="#" onclick="navigator.share&&navigator.share({title:'ToolBox Pro 极简在线工具箱',url:'https://dingpeng29.github.io/toolbox-pro/'});return false;">分享给朋友</a></p>
