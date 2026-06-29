@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="在线JWT解码器，解码JSON Web Token的Header和Payload，检查过期时间。纯浏览器本地运行，JWT Token不上传服务器。开发调试必备免费工具。">
+<meta name="keywords" content="JWT解码,JWT Decoder,JSON Web Token解码,jwt.io,Token解析,JWT Debugger">
+<meta property="og:title" content="JWT在线解码器 - JSON Web Token Decoder | ToolBox Pro">
+<meta property="og:description" content="在线解码JWT Token，解析Header/Payload，检查Token过期时间，纯本地运行。">
+<meta property="og:url" content="https://dingpeng29.github.io/toolbox-pro/tools/jwt-decoder.html">
+<title>JWT在线解码器 - JSON Web Token Decoder | ToolBox Pro</title>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"JWT在线解码器","url":"https://dingpeng29.github.io/toolbox-pro/tools/jwt-decoder.html","description":"在线解码JSON Web Token (JWT)，解析Header/Payload，纯浏览器本地处理","applicationCategory":"Utility","operatingSystem":"All","inLanguage":"zh-CN"}
+</script>
+<style>
+:root{--bg:#f8fafc;--card:#fff;--text:#1e293b;--text2:#64748b;--border:#e2e8f0;--primary:#3b82f6;--primary-h:#2563eb;--green:#10b981;--red:#ef4444;--amber:#f59e0b;--shadow:0 1px 3px rgba(0,0,0,0.06);--radius:12px;--radius-sm:8px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;}
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.header .logo{font-size:20px;font-weight:700;color:var(--primary);text-decoration:none;}
+.header .back{color:var(--text2);text-decoration:none;font-size:14px;}.header .back:hover{color:var(--primary);}
+.container{max-width:900px;margin:0 auto;padding:24px 20px;}
+.hero{text-align:center;padding:32px 20px 24px;}
+.hero h1{font-size:28px;font-weight:800;color:var(--text);}
+.hero p{color:var(--text2);font-size:14px;margin-top:8px;}
+.card{background:var(--card);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);border:1px solid var(--border);margin-bottom:20px;}
+textarea{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:'SF Mono','Fira Code','Consolas',monospace;resize:vertical;background:var(--bg);min-height:100px;}
+textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(59,130,246,0.1);}
+.btn{padding:10px 20px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .2s;}
+.btn-primary{background:var(--primary);color:#fff;}.btn-primary:hover{background:var(--primary-h);}
+.btn-secondary{background:var(--bg);color:var(--text);border:1px solid var(--border);}.btn-secondary:hover{background:var(--border);}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.section{margin-top:16px;}
+.section-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.section-title .badge{font-size:11px;padding:2px 10px;border-radius:12px;font-weight:600;}
+.badge-header{background:#dbeafe;color:#1d4ed8;} .badge-payload{background:#d1fae5;color:#065f46;} .badge-sig{background:#fee2e2;color:#991b1b;}
+.json-box{padding:14px;background:#1e293b;border-radius:var(--radius-sm);font-family:'SF Mono','Fira Code','Consolas',monospace;font-size:12px;line-height:1.7;color:#e2e8f0;overflow-x:auto;white-space:pre-wrap;max-height:300px;overflow-y:auto;}
+.status-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:600;}
+.status-valid{background:#d1fae5;color:#065f46;}.status-expired{background:#fee2e2;color:#991b1b;}.status-warn{background:#fef3c7;color:#92400e;}
+.claim-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.claim-row .key{color:var(--text2);font-family:'SF Mono','Consolas',monospace;}
+.claim-row .val{font-weight:600;}
+.breadcrumb{margin-bottom:16px;font-size:13px;color:var(--text2);}.breadcrumb a{color:var(--primary);text-decoration:none;}
+.related{margin-top:32px;padding-top:24px;border-top:1px solid var(--border);}
+.related h3{font-size:16px;margin-bottom:12px;}
+.related .links{display:flex;flex-wrap:wrap;gap:8px;}
+.related .links a{padding:6px 14px;background:var(--bg);border-radius:20px;text-decoration:none;color:var(--text);font-size:13px;border:1px solid var(--border);transition:all .2s;}
+.related .links a:hover{border-color:var(--primary);color:var(--primary);}
+.footer{text-align:center;padding:32px 20px;color:var(--text2);font-size:12px;border-top:1px solid var(--border);margin-top:32px;}.footer a{color:var(--primary);text-decoration:none;}
+.error-box{padding:12px 16px;background:#fee2e2;border-radius:var(--radius-sm);color:#991b1b;font-size:13px;margin-top:8px;}
+@media(max-width:700px){.hero h1{font-size:22px;}}
+</style>
+</head>
+<body>
+<header class="header"><a href="/toolbox-pro/" class="logo">🔧 ToolBox Pro</a><a href="/toolbox-pro/" class="back">← 返回工具箱</a></header>
+<div class="container">
+<div class="breadcrumb"><a href="/toolbox-pro/">首页</a> / JWT 在线解码器</div>
+<div class="hero"><h1>JWT 在线解码器</h1><p>解码 JSON Web Token (JWT)，解析 Header 和 Payload，检查 Token 过期时间。所有处理在浏览器本地完成，Token 不上传服务器。</p></div>
+<div class="card">
+<textarea id="jwtIn" placeholder="粘贴JWT Token...&#10;例如: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c" oninput="decode()"></textarea>
+<div class="btn-row">
+<button class="btn btn-primary" onclick="decode()">解码 JWT</button>
+<button class="btn btn-secondary" onclick="document.getElementById('jwtIn').value='';document.getElementById('output').innerHTML='';">清空</button>
+</div>
+<div id="output"></div>
+</div>
+<div class="related"><h3>更多免费工具</h3><div class="links">
+<a href="/toolbox-pro/tools/json-formatter.html">JSON格式化</a><a href="/toolbox-pro/tools/base64-encoder.html">Base64编解码</a><a href="/toolbox-pro/tools/hash-calculator.html">Hash计算</a><a href="/toolbox-pro/tools/timestamp-converter.html">时间戳转换</a><a href="/toolbox-pro/tools/password-generator.html">密码生成器</a><a href="/toolbox-pro/">查看全部工具 →</a>
+</div></div>
+</div>
+<footer class="footer"><p>ToolBox Pro - 极简在线工具箱 | Token处理在浏览器本地完成，不上传服务器</p></footer>
+<script>
+function b64urlDecode(s){
+s=s.replace(/-/g,'+').replace(/_/g,'/');
+while(s.length%4)s+='=';
+try{return atob(s);}catch(e){return null;}
+}
+function jsonFmt(s){try{return JSON.stringify(JSON.parse(s),null,2);}catch(e){return s;}}
+
+function decode(){
+var v=document.getElementById('jwtIn').value.trim();
+var out=document.getElementById('output');
+if(!v){out.innerHTML='';return;}
+
+var parts=v.split('.');
+if(parts.length!==3){out.innerHTML='<div class="error-box">不是有效的JWT Token — JWT格式应为 header.payload.signature (三段，以 . 分隔)</div>';return;}
+
+var headerStr=b64urlDecode(parts[0]);
+var payloadStr=b64urlDecode(parts[1]);
+var sig=parts[2];
+
+if(!headerStr||!payloadStr){out.innerHTML='<div class="error-box">Base64解码失败 — Token格式可能已损坏</div>';return;}
+
+var header=headerStr,payload=payloadStr;
+var hFmt=jsonFmt(header),pFmt=jsonFmt(payload);
+
+var html='';
+
+html+='<div class="section"><div class="section-title"><span class="badge badge-header">HEADER</span> 算法与类型</div>';
+html+='<div class="json-box">'+esc(hFmt)+'</div></div>';
+
+html+='<div class="section"><div class="section-title"><span class="badge badge-payload">PAYLOAD</span> 数据</div>';
+html+='<div class="json-box">'+esc(pFmt)+'</div></div>';
+
+var pObj;
+try{pObj=JSON.parse(payload);}catch(e){pObj=null;}
+
+if(pObj){
+html+='<div class="section"><div class="section-title">📋 Claims 摘要</div>';
+var claims=[];
+if(pObj.iss) claims.push({k:'iss',v:pObj.iss,d:'签发者 (Issuer)'});
+if(pObj.sub) claims.push({k:'sub',v:pObj.sub,d:'主题 (Subject)'});
+if(pObj.aud) claims.push({k:'aud',v:pObj.aud,d:'受众 (Audience)'});
+if(pObj.exp) claims.push({k:'exp',v:pObj.exp,d:'过期时间 (Expiration)',ts:true});
+if(pObj.nbf) claims.push({k:'nbf',v:pObj.nbf,d:'生效时间 (Not Before)',ts:true});
+if(pObj.iat) claims.push({k:'iat',v:pObj.iat,d:'签发时间 (Issued At)',ts:true});
+if(pObj.jti) claims.push({k:'jti',v:pObj.jti,d:'JWT ID'});
+
+var now=Math.floor(Date.now()/1000);
+if(pObj.exp){
+	var expDate=new Date(pObj.exp*1000);
+	var expired=now>pObj.exp;
+	if(expired)html+='<div style="margin-top:8px;"><span class="status-badge status-expired">⚠ 已过期 · '+expDate.toLocaleString('zh-CN')+'</span></div>';
+	else{
+		var remain=pObj.exp-now;
+		var remainStr='';
+		if(remain<60)remainStr=remain+'秒';
+		else if(remain<3600)remainStr=Math.floor(remain/60)+'分钟';
+		else if(remain<86400)remainStr=Math.floor(remain/3600)+'小时';
+		else remainStr=Math.floor(remain/86400)+'天';
+		html+='<div style="margin-top:8px;"><span class="status-badge status-valid">✅ 有效 · 剩余'+remainStr+' · '+expDate.toLocaleString('zh-CN')+'</span></div>';
+	}
+}
+
+claims.forEach(function(c){
+	html+='<div class="claim-row"><span><span class="key">'+c.k+'</span> <span style="color:var(--text2);font-size:11px;">'+c.d+'</span></span>';
+	if(c.ts)html+='<span class="val">'+new Date(c.v*1000).toLocaleString('zh-CN')+' <span style="color:var(--text2);font-size:11px;">('+c.v+')</span></span>';
+	else html+='<span class="val">'+esc(String(c.v))+'</span>';
+	html+='</div>';
+});
+html+='</div>';
+}
+
+html+='<div class="section"><div class="section-title"><span class="badge badge-sig">SIGNATURE</span> 签名</div>';
+html+='<div class="json-box" style="word-break:break-all;">'+esc(sig)+'</div></div>';
+
+out.innerHTML=html;
+}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+</script>
+<script>(function(){var b=document.createElement('script');var c=window.location.protocol.split(':')[0];if(c==='https'){b.src='https://zz.bdstatic.com/linksubmit/push.js';}else{b.src='http://push.zhanzhang.baidu.com/push.js';}var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(b,s);})();</script>
+</body>
+</html>

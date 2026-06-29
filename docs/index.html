@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="极简在线工具箱 - 20个免费在线工具：JSON格式化、Base64编解码、字数统计、进制转换、CSS格式化、JS格式化、图片转Base64、大小写转换、UUID生成、Hash计算等">
+<meta name="description" content="极简在线工具箱 - 21个免费在线工具：JSON格式化、Base64编解码、字数统计、进制转换、CSS格式化、JS格式化、图片转Base64、大小写转换、UUID生成、Hash计算等">
 <meta name="keywords" content="在线工具,JSON格式化,Base64编码,URL编码,时间戳,二维码生成,密码生成器,Markdown,正则表达式,文本对比,UUID生成,Hash计算,HTML实体,Lorem Ipsum,字数统计,字符计数,CSS格式化,JS格式化,进制转换,图片转Base64,大小写转换">
 <meta property="og:title" content="ToolBox Pro - 极简在线工具箱">
-<meta property="og:description" content="干净、快速、好用的在线工具集合。JSON格式化、Base64编解码、字数统计、进制转换、CSS/JS格式化、二维码生成等20个免费工具。">
+<meta property="og:description" content="干净、快速、好用的在线工具集合。JSON格式化、Base64编解码、字数统计、进制转换、CSS/JS格式化、二维码生成等21个免费工具。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dingpeng29.github.io/toolbox-pro/">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ToolBox Pro - 极简在线工具箱">
-<meta name="twitter:description" content="20个免费在线工具：JSON、Base64、字数统计、进制转换、CSS/JS格式化、二维码、正则等，干净快速无广告轰炸。">
+<meta name="twitter:description" content="21个免费在线工具：JSON、Base64、字数统计、进制转换、CSS/JS格式化、二维码、正则等，干净快速无广告轰炸。">
 <title>ToolBox Pro - 极简在线工具箱 | JSON格式化 Base64 字数统计 进制转换 CSS格式化 大小写转换</title>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"ToolBox Pro","url":"https://dingpeng29.github.io/toolbox-pro/","description":"极简在线工具箱，提供JSON格式化、Base64编解码、字数统计、进制转换、CSS/JS格式化、图片转Base64、大小写转换、UUID生成、Hash计算等20个免费在线工具。","applicationCategory":"Utility","operatingSystem":"All","inLanguage":"zh-CN"}
+{"@context":"https://schema.org","@type":"WebApplication","name":"ToolBox Pro","url":"https://dingpeng29.github.io/toolbox-pro/","description":"极简在线工具箱，提供JSON格式化、Base64编解码、字数统计、进制转换、CSS/JS格式化、图片转Base64、大小写转换、UUID生成、Hash计算等21个免费在线工具。","applicationCategory":"Utility","operatingSystem":"All","inLanguage":"zh-CN"}
 </script>
 <style>
 :root {
@@ -117,7 +117,7 @@ textarea { min-height:160px; }
 <div class="container">
   <div class="hero">
     <h1>极简在线工具箱</h1>
-    <p>20个免费在线工具，干净、快速、好用。JSON格式化 · Base64 · 字数统计 · 进制转换 · CSS格式化 · 大小写转换 · 图片转Base64 等。纯浏览器本地运行，数据不上传。</p>
+    <p>21个免费在线工具，干净、快速、好用。JSON格式化 · Base64 · 字数统计 · 进制转换 · CSS格式化 · 大小写转换 · 图片转Base64 等。纯浏览器本地运行，数据不上传。</p>
   </div>
 
   <div class="tool-tabs" id="toolTabs">
@@ -141,6 +141,7 @@ textarea { min-height:160px; }
     <button class="tool-tab" data-tool="numBase">进制转换</button>
     <button class="tool-tab" data-tool="imgBase64">图片Base64</button>
     <button class="tool-tab" data-tool="caseConv">大小写转换</button>
+    <button class="tool-tab" data-tool="jwt">JWT解码</button>
   </div>
 
   <!-- JSON Formatter -->
@@ -452,6 +453,18 @@ textarea { min-height:160px; }
       <button class="btn btn-secondary" onclick="convertCase('kebab')">kebab-case</button>
     </div>
     <div class="result-box" id="caseOutput" style="margin-top:12px;"></div>
+  </div>
+
+  <!-- JWT Decoder -->
+  <div class="tool-panel" id="panel-jwt">
+    <h2>JWT 在线解码器</h2>
+    <p class="desc">解码 JSON Web Token (JWT)，解析 Header 和 Payload，检查 Token 过期时间。所有处理在浏览器本地完成。</p>
+    <textarea id="jwtInput" placeholder="粘贴JWT Token...&#10;例如: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"></textarea>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="decodeJWT()">解码 JWT</button>
+      <button class="btn btn-secondary" onclick="document.getElementById('jwtInput').value='';document.getElementById('jwtOutput').innerHTML='';">清空</button>
+    </div>
+    <div class="result-box" id="jwtOutput" style="margin-top:12px;font-family:'SF Mono','Consolas',monospace;font-size:12px;max-height:400px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;"></div>
   </div>
 
 </div>
@@ -1169,6 +1182,38 @@ function convertCase(type) {
   }
   document.getElementById('caseOutput').textContent = result;
 }
+
+// --- JWT ---
+function b64urlDecode(s) {
+  s = s.replace(/-/g, '+').replace(/_/g, '/');
+  while (s.length % 4) s += '=';
+  try { return atob(s); } catch(e) { return null; }
+}
+function decodeJWT() {
+  var v = document.getElementById('jwtInput').value.trim();
+  var out = document.getElementById('jwtOutput');
+  if (!v) { out.innerHTML = ''; return; }
+  var parts = v.split('.');
+  if (parts.length !== 3) { out.innerHTML = '<span style="color:var(--red);">不是有效的JWT Token（格式: header.payload.signature）</span>'; return; }
+  var header = b64urlDecode(parts[0]), payload = b64urlDecode(parts[1]);
+  if (!header || !payload) { out.innerHTML = '<span style="color:var(--red);">Base64解码失败</span>'; return; }
+  var hFmt, pFmt;
+  try { hFmt = JSON.stringify(JSON.parse(header), null, 2); } catch(e) { hFmt = header; }
+  try { pFmt = JSON.stringify(JSON.parse(payload), null, 2); } catch(e) { pFmt = payload; }
+  var html = '<div style="color:var(--primary);font-weight:700;">HEADER</div><pre style="margin:4px 0 12px;">'+escHtml(hFmt)+'</pre>';
+  html += '<div style="color:var(--green);font-weight:700;">PAYLOAD</div><pre style="margin:4px 0 12px;">'+escHtml(pFmt)+'</pre>';
+  var pObj;
+  try { pObj = JSON.parse(payload); } catch(e) { pObj = null; }
+  if (pObj && pObj.exp) {
+    var now = Math.floor(Date.now()/1000);
+    var expDate = new Date(pObj.exp*1000);
+    if (now > pObj.exp) html += '<div style="background:#fee2e2;color:#991b1b;padding:8px 12px;border-radius:6px;">⚠ Token已过期 · '+expDate.toLocaleString('zh-CN')+'</div>';
+    else { var r = pObj.exp - now; html += '<div style="background:#d1fae5;color:#065f46;padding:8px 12px;border-radius:6px;">✅ Token有效 · 剩余'+(r<60?r+'秒':r<3600?Math.floor(r/60)+'分钟':r<86400?Math.floor(r/3600)+'小时':Math.floor(r/86400)+'天')+' · '+expDate.toLocaleString('zh-CN')+'</div>'; }
+  }
+  html += '<div style="color:var(--red);font-weight:700;margin-top:12px;">SIGNATURE</div><div style="word-break:break-all;font-size:11px;color:var(--text2);">'+escHtml(parts[2])+'</div>';
+  out.innerHTML = html;
+}
+function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 // Init
 updateWordCount();
