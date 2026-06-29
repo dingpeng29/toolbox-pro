@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="在线大小写转换工具，支持全大写、全小写、首字母大写、句首大写、大小写反转、camelCase、snake_case、kebab-case转换。程序员必备免费工具。">
+<meta name="keywords" content="大小写转换,在线大小写,大写转小写,小写转大写,camelCase,snake_case,kebab-case,首字母大写">
+<meta property="og:title" content="在线大小写转换 - UPPER/lower/camelCase/snake_case | ToolBox Pro">
+<meta property="og:description" content="文本大小写转换工具，支持8种转换模式：大写、小写、camelCase、snake_case等。">
+<meta property="og:url" content="https://dingpeng29.github.io/toolbox-pro/tools/case-converter.html">
+<title>在线大小写转换 - UPPER lower camelCase snake_case kebab-case | ToolBox Pro</title>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"在线大小写转换","url":"https://dingpeng29.github.io/toolbox-pro/tools/case-converter.html","description":"文本大小写转换，支持大写、小写、camelCase、snake_case、kebab-case等8种模式","applicationCategory":"Utility","operatingSystem":"All","inLanguage":"zh-CN"}
+</script>
+<style>
+:root{--bg:#f8fafc;--card:#fff;--text:#1e293b;--text2:#64748b;--border:#e2e8f0;--primary:#3b82f6;--primary-h:#2563eb;--green:#10b981;--shadow:0 1px 3px rgba(0,0,0,0.06);--radius:12px;--radius-sm:8px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;}
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.header .logo{font-size:20px;font-weight:700;color:var(--primary);text-decoration:none;}
+.header .back{color:var(--text2);text-decoration:none;font-size:14px;}.header .back:hover{color:var(--primary);}
+.container{max-width:800px;margin:0 auto;padding:24px 20px;}
+.hero{text-align:center;padding:32px 20px 24px;}
+.hero h1{font-size:28px;font-weight:800;color:var(--text);}
+.hero p{color:var(--text2);font-size:14px;margin-top:8px;}
+.card{background:var(--card);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);border:1px solid var(--border);}
+textarea{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:'SF Mono','Fira Code','Consolas',monospace;resize:vertical;background:var(--bg);min-height:120px;}
+textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(59,130,246,0.1);}
+.btn{padding:10px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s;}
+.btn-primary{background:var(--primary);color:#fff;}.btn-primary:hover{background:var(--primary-h);}
+.btn-secondary{background:var(--bg);color:var(--text);border:1px solid var(--border);}.btn-secondary:hover{background:var(--border);}
+.btn-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;}
+.result-box{margin-top:12px;padding:16px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border);min-height:60px;font-family:'SF Mono','Fira Code','Consolas',monospace;font-size:14px;word-break:break-all;white-space:pre-wrap;max-height:300px;overflow-y:auto;}
+.breadcrumb{margin-bottom:16px;font-size:13px;color:var(--text2);}.breadcrumb a{color:var(--primary);text-decoration:none;}
+.related{margin-top:32px;padding-top:24px;border-top:1px solid var(--border);}
+.related h3{font-size:16px;margin-bottom:12px;}
+.related .links{display:flex;flex-wrap:wrap;gap:8px;}
+.related .links a{padding:6px 14px;background:var(--bg);border-radius:20px;text-decoration:none;color:var(--text);font-size:13px;border:1px solid var(--border);transition:all .2s;}
+.related .links a:hover{border-color:var(--primary);color:var(--primary);}
+.footer{text-align:center;padding:32px 20px;color:var(--text2);font-size:12px;border-top:1px solid var(--border);margin-top:32px;}.footer a{color:var(--primary);text-decoration:none;}
+.toast{position:fixed;top:20px;right:20px;padding:12px 20px;border-radius:var(--radius-sm);color:#fff;font-size:14px;z-index:9999;animation:slideIn .3s;}
+.toast.success{background:var(--green);}@keyframes slideIn{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:translateX(0);}}
+@media(max-width:640px){.hero h1{font-size:22px;}}
+</style>
+</head>
+<body>
+<header class="header"><a href="/toolbox-pro/" class="logo">🔧 ToolBox Pro</a><a href="/toolbox-pro/" class="back">← 返回工具箱</a></header>
+<div class="container">
+<div class="breadcrumb"><a href="/toolbox-pro/">首页</a> / 在线大小写转换</div>
+<div class="hero"><h1>大小写转换器</h1><p>文本大小写转换工具，支持全大写、全小写、首字母大写、句首大写、大小写反转、camelCase、snake_case、kebab-case。程序员命名必备。</p></div>
+<div class="card">
+<textarea id="caseIn" placeholder="输入要转换的文本...如：hello world"></textarea>
+<div class="btn-row">
+<button class="btn btn-primary" onclick="conv('upper')">全大写 UPPER</button>
+<button class="btn btn-secondary" onclick="conv('lower')">全小写 lower</button>
+<button class="btn btn-secondary" onclick="conv('title')">首字母大写 Title</button>
+<button class="btn btn-secondary" onclick="conv('sentence')">句首大写</button>
+<button class="btn btn-secondary" onclick="conv('invert')">大小写反转</button>
+<button class="btn btn-secondary" onclick="conv('camel')">camelCase</button>
+<button class="btn btn-secondary" onclick="conv('snake')">snake_case</button>
+<button class="btn btn-secondary" onclick="conv('kebab')">kebab-case</button>
+</div>
+<div class="result-box" id="caseOut"></div>
+</div>
+<div class="related"><h3>更多免费工具</h3><div class="links">
+<a href="/toolbox-pro/tools/json-formatter.html">JSON格式化</a><a href="/toolbox-pro/tools/regex-tester.html">正则测试</a><a href="/toolbox-pro/tools/number-base-converter.html">进制转换</a><a href="/toolbox-pro/tools/word-counter.html">字数统计</a><a href="/toolbox-pro/tools/text-diff.html">文本对比</a><a href="/toolbox-pro/">查看全部20个工具 →</a>
+</div></div>
+</div>
+<footer class="footer"><p>ToolBox Pro - 极简在线工具箱 | 所有工具均在浏览器本地运行，数据不上传</p></footer>
+<script>
+function show(t,m){var d=document.createElement('div');d.className='toast '+t;d.textContent=m;document.body.appendChild(d);setTimeout(function(){d.remove();},2000);}
+function conv(type){
+var s=document.getElementById('caseIn').value;if(!s)return;
+var r='';
+switch(type){
+case'upper':r=s.toUpperCase();break;
+case'lower':r=s.toLowerCase();break;
+case'title':r=s.replace(/\b\w/g,function(c){return c.toUpperCase();});break;
+case'sentence':r=s.charAt(0).toUpperCase()+s.slice(1).toLowerCase();r=r.replace(/([.!?]\s+)([a-z])/g,function(_,p,c){return p+c.toUpperCase();});break;
+case'invert':r=s.split('').map(function(c){return c===c.toUpperCase()?c.toLowerCase():c.toUpperCase();}).join('');break;
+case'camel':r=s.replace(/[^a-zA-Z0-9]+(.)/g,function(_,c){return c.toUpperCase();});r=r.charAt(0).toLowerCase()+r.slice(1);break;
+case'snake':r=s.replace(/([A-Z])/g,'_$1').toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');break;
+case'kebab':r=s.replace(/([A-Z])/g,'-$1').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');break;
+}
+document.getElementById('caseOut').textContent=r;
+}
+</script>
+<script>(function(){var b=document.createElement('script');var c=window.location.protocol.split(':')[0];if(c==='https'){b.src='https://zz.bdstatic.com/linksubmit/push.js';}else{b.src='http://push.zhanzhang.baidu.com/push.js';}var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(b,s);})();</script>
+</body>
+</html>

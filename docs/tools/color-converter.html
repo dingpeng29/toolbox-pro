@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="在线颜色转换工具，支持HEX、RGB、HSL颜色格式互转。实时颜色预览，点击即可复制颜色值。前端开发、UI设计必备免费工具。">
+<meta name="keywords" content="颜色转换,HEX转RGB,RGB转HSL,颜色在线转换,Color Converter,颜色代码转换,HEX RGB HSL">
+<meta property="og:title" content="在线颜色转换 - HEX RGB HSL | ToolBox Pro">
+<meta property="og:description" content="HEX、RGB、HSL颜色格式在线互转，实时预览颜色，一键复制。">
+<meta property="og:url" content="https://dingpeng29.github.io/toolbox-pro/tools/color-converter.html">
+<title>在线颜色转换器 - HEX RGB HSL 颜色格式互转 | ToolBox Pro</title>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"在线颜色转换","url":"https://dingpeng29.github.io/toolbox-pro/tools/color-converter.html","description":"HEX、RGB、HSL颜色格式在线互转，实时颜色预览","applicationCategory":"Utility","operatingSystem":"All","inLanguage":"zh-CN"}
+</script>
+<style>
+:root{--bg:#f8fafc;--card:#fff;--text:#1e293b;--text2:#64748b;--border:#e2e8f0;--primary:#3b82f6;--primary-h:#2563eb;--red:#ef4444;--green:#10b981;--shadow:0 1px 3px rgba(0,0,0,0.06);--radius:12px;--radius-sm:8px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;}
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.header .logo{font-size:20px;font-weight:700;color:var(--primary);text-decoration:none;}
+.header .back{color:var(--text2);text-decoration:none;font-size:14px;}.header .back:hover{color:var(--primary);}
+.container{max-width:800px;margin:0 auto;padding:24px 20px;}
+.hero{text-align:center;padding:32px 20px 24px;}
+.hero h1{font-size:28px;font-weight:800;color:var(--text);}
+.hero p{color:var(--text2);font-size:14px;margin-top:8px;}
+.card{background:var(--card);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);border:1px solid var(--border);}
+input{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:'SF Mono','Fira Code','Consolas',monospace;background:var(--bg);}
+input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(59,130,246,0.1);}
+.inline-row{display:flex;gap:12px;align-items:center;margin-bottom:16px;}
+.inline-row>*:first-child{flex:1;}
+.inline-row .btn{flex:0 0 auto;}
+.color-preview{width:80px;height:80px;border-radius:var(--radius-sm);border:2px solid var(--border);flex:0 0 auto;}
+.btn{padding:10px 20px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .2s;}
+.btn-primary{background:var(--primary);color:#fff;}.btn-primary:hover{background:var(--primary-h);}
+.results{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+.res-item{padding:12px 16px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border);cursor:pointer;transition:all .2s;}
+.res-item:hover{border-color:var(--primary);}
+.res-item .lbl{font-size:12px;color:var(--text2);}
+.res-item .val{font-size:16px;font-weight:700;font-family:'SF Mono','Consolas',monospace;color:var(--primary);}
+.breadcrumb{margin-bottom:16px;font-size:13px;color:var(--text2);}.breadcrumb a{color:var(--primary);text-decoration:none;}
+.related{margin-top:32px;padding-top:24px;border-top:1px solid var(--border);}
+.related h3{font-size:16px;margin-bottom:12px;}
+.related .links{display:flex;flex-wrap:wrap;gap:8px;}
+.related .links a{padding:6px 14px;background:var(--bg);border-radius:20px;text-decoration:none;color:var(--text);font-size:13px;border:1px solid var(--border);transition:all .2s;}
+.related .links a:hover{border-color:var(--primary);color:var(--primary);}
+.footer{text-align:center;padding:32px 20px;color:var(--text2);font-size:12px;border-top:1px solid var(--border);margin-top:32px;}.footer a{color:var(--primary);text-decoration:none;}
+.toast{position:fixed;top:20px;right:20px;padding:12px 20px;border-radius:var(--radius-sm);color:#fff;font-size:14px;z-index:9999;animation:slideIn .3s;}
+.toast.success{background:var(--green);}@keyframes slideIn{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:translateX(0);}}
+@media(max-width:640px){.hero h1{font-size:22px;}.results{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<header class="header"><a href="/toolbox-pro/" class="logo">🔧 ToolBox Pro</a><a href="/toolbox-pro/" class="back">← 返回工具箱</a></header>
+<div class="container">
+<div class="breadcrumb"><a href="/toolbox-pro/">首页</a> / 在线颜色转换</div>
+<div class="hero"><h1>颜色在线转换器</h1><p>HEX、RGB、HSL颜色格式互转。支持颜色选择器和实时预览。输入任意颜色值即可查看所有格式和颜色预览。</p></div>
+<div class="card">
+<div class="inline-row">
+<input type="text" id="colorIn" placeholder="输入颜色值：如 #3b82f6 或 rgb(59,130,246) 或 red" oninput="convert()">
+<div class="color-preview" id="preview"></div>
+<button class="btn btn-primary" onclick="convert()">转换</button>
+</div>
+<div class="results" id="results"></div>
+</div>
+<div class="related"><h3>更多免费工具</h3><div class="links">
+<a href="/toolbox-pro/tools/css-formatter.html">CSS格式化</a><a href="/toolbox-pro/tools/regex-tester.html">正则测试</a><a href="/toolbox-pro/tools/json-formatter.html">JSON格式化</a><a href="/toolbox-pro/tools/number-base-converter.html">进制转换</a><a href="/toolbox-pro/tools/word-counter.html">字数统计</a><a href="/toolbox-pro/">查看全部20个工具 →</a>
+</div></div>
+</div>
+<footer class="footer"><p>ToolBox Pro - 极简在线工具箱 | 所有工具均在浏览器本地运行，数据不上传</p></footer>
+<script>
+function show(t,m){var d=document.createElement('div');d.className='toast '+t;d.textContent=m;document.body.appendChild(d);setTimeout(function(){d.remove();},2000);}
+function convert(){
+var s=document.getElementById('colorIn').value.trim();if(!s)return;
+var d=document.createElement('div');d.style.color=s;document.body.appendChild(d);
+var c=getComputedStyle(d).color;document.body.removeChild(d);
+if(!c||c==='rgba(0, 0, 0, 0)'){document.getElementById('results').innerHTML='<p style="color:var(--red);grid-column:1/-1;">无法解析颜色值</p>';return;}
+var m=c.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);if(!m){document.getElementById('results').innerHTML='<p style="color:var(--red);grid-column:1/-1;">解析失败</p>';return;}
+var r=parseInt(m[1]),g=parseInt(m[2]),b=parseInt(m[3]);
+var hex='#'+[r,g,b].map(function(x){return x.toString(16).padStart(2,'0');}).join('');
+var rgb='rgb('+r+', '+g+', '+b+')';
+var rr=r/255,gg=g/255,bb=b/255,max=Math.max(rr,gg,bb),min=Math.min(rr,gg,bb);
+var h=0,sat=0,l=(max+min)/2;
+if(max!==min){var diff=max-min;sat=l>0.5?diff/(2-max-min):diff/(max+min);
+switch(max){case rr:h=((gg-bb)/diff+(gg<bb?6:0))/6;break;case gg:h=((bb-rr)/diff+2)/6;break;case bb:h=((rr-gg)/diff+4)/6;break;}}
+var hsl='hsl('+Math.round(h*360)+', '+Math.round(sat*100)+'%, '+Math.round(l*100)+'%)';
+document.getElementById('preview').style.backgroundColor=rgb;
+document.getElementById('results').innerHTML=
+'<div class="res-item" onclick="copy(\''+hex+'\')"><div class="lbl">HEX</div><div class="val">'+hex+'</div></div>'+
+'<div class="res-item" onclick="copy(\''+rgb+'\')"><div class="lbl">RGB</div><div class="val">'+rgb+'</div></div>'+
+'<div class="res-item" onclick="copy(\''+hsl+'\')"><div class="lbl">HSL</div><div class="val">'+hsl+'</div></div>'+
+'<div class="res-item"><div class="lbl">通道</div><div class="val">R:'+r+' G:'+g+' B:'+b+'</div></div>';
+}
+function copy(t){navigator.clipboard.writeText(t).then(function(){show('success','已复制');});}
+document.getElementById('colorIn').value='#3b82f6';convert();
+</script>
+<script>(function(){var b=document.createElement('script');var c=window.location.protocol.split(':')[0];if(c==='https'){b.src='https://zz.bdstatic.com/linksubmit/push.js';}else{b.src='http://push.zhanzhang.baidu.com/push.js';}var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(b,s);})();</script>
+</body>
+</html>

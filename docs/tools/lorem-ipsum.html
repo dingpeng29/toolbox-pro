@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Lorem Ipsum在线占位文本生成器，生成Lorem Ipsum占位文本。支持自定义段落数和长度，适用于设计稿、排版测试等场景。免费在线工具。">
+<meta name="keywords" content="Lorem Ipsum,占位文本,假文生成,乱数假文,排版测试,设计填充文本,Placeholder Text">
+<meta property="og:title" content="Lorem Ipsum在线生成器 - 占位文本 | ToolBox Pro">
+<meta property="og:description" content="在线生成Lorem Ipsum占位文本，支持自定义段落数和长度。">
+<meta property="og:url" content="https://dingpeng29.github.io/toolbox-pro/tools/lorem-ipsum.html">
+<title>Lorem Ipsum在线生成器 - 占位文本 | 设计排版测试 | ToolBox Pro</title>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Lorem Ipsum生成器","url":"https://dingpeng29.github.io/toolbox-pro/tools/lorem-ipsum.html","description":"在线生成Lorem Ipsum占位文本，支持自定义段落数和长度","applicationCategory":"Utility","operatingSystem":"All","inLanguage":"zh-CN"}
+</script>
+<style>
+:root{--bg:#f8fafc;--card:#fff;--text:#1e293b;--text2:#64748b;--border:#e2e8f0;--primary:#3b82f6;--primary-h:#2563eb;--green:#10b981;--shadow:0 1px 3px rgba(0,0,0,0.06);--radius:12px;--radius-sm:8px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;}
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.header .logo{font-size:20px;font-weight:700;color:var(--primary);text-decoration:none;}
+.header .back{color:var(--text2);text-decoration:none;font-size:14px;}.header .back:hover{color:var(--primary);}
+.container{max-width:800px;margin:0 auto;padding:24px 20px;}
+.hero{text-align:center;padding:32px 20px 24px;}
+.hero h1{font-size:28px;font-weight:800;color:var(--text);}
+.hero p{color:var(--text2);font-size:14px;margin-top:8px;}
+.card{background:var(--card);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);border:1px solid var(--border);}
+input[type="number"]{padding:12px 16px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;background:var(--bg);width:80px;}
+input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(59,130,246,0.1);}
+.btn{padding:10px 20px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .2s;}
+.btn-primary{background:var(--primary);color:#fff;}.btn-primary:hover{background:var(--primary-h);}
+.inline-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:12px;}
+.inline-row label{font-size:14px;color:var(--text2);display:flex;align-items:center;gap:8px;}
+.result-box{margin-top:12px;padding:20px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border);min-height:100px;font-size:14px;line-height:1.8;max-height:400px;overflow-y:auto;font-style:italic;color:var(--text2);}
+.breadcrumb{margin-bottom:16px;font-size:13px;color:var(--text2);}.breadcrumb a{color:var(--primary);text-decoration:none;}
+.related{margin-top:32px;padding-top:24px;border-top:1px solid var(--border);}
+.related h3{font-size:16px;margin-bottom:12px;}
+.related .links{display:flex;flex-wrap:wrap;gap:8px;}
+.related .links a{padding:6px 14px;background:var(--bg);border-radius:20px;text-decoration:none;color:var(--text);font-size:13px;border:1px solid var(--border);transition:all .2s;}
+.related .links a:hover{border-color:var(--primary);color:var(--primary);}
+.footer{text-align:center;padding:32px 20px;color:var(--text2);font-size:12px;border-top:1px solid var(--border);margin-top:32px;}.footer a{color:var(--primary);text-decoration:none;}
+@media(max-width:640px){.hero h1{font-size:22px;}}
+</style>
+</head>
+<body>
+<header class="header"><a href="/toolbox-pro/" class="logo">🔧 ToolBox Pro</a><a href="/toolbox-pro/" class="back">← 返回工具箱</a></header>
+<div class="container">
+<div class="breadcrumb"><a href="/toolbox-pro/">首页</a> / Lorem Ipsum 生成器</div>
+<div class="hero"><h1>Lorem Ipsum 占位文本生成器</h1><p>生成Lorem Ipsum占位文本，适用于UI设计、排版测试、网站开发等场景。支持自定义段落数、每段句数，可选以经典开头起始。</p></div>
+<div class="card">
+<div class="inline-row">
+<label>段落数: <input type="number" id="loremCount" value="3" min="1" max="50"></label>
+<label>每段句数: <input type="number" id="loremSent" value="5" min="1" max="20"></label>
+<label><input type="checkbox" id="loremStart" checked style="width:auto;"> 以 Lorem ipsum dolor sit amet 开头</label>
+</div>
+<div class="inline-row">
+<button class="btn btn-primary" onclick="gen()">生成占位文本</button>
+<button class="btn btn-primary" style="background:var(--green);" onclick="copy()">复制文本</button>
+</div>
+<div class="result-box" id="loremOut"></div>
+</div>
+<div class="related"><h3>更多免费工具</h3><div class="links">
+<a href="/toolbox-pro/tools/word-counter.html">字数统计</a><a href="/toolbox-pro/tools/markdown-preview.html">Markdown预览</a><a href="/toolbox-pro/tools/text-diff.html">文本对比</a><a href="/toolbox-pro/tools/case-converter.html">大小写转换</a><a href="/toolbox-pro/tools/html-entity.html">HTML实体</a><a href="/toolbox-pro/">查看全部20个工具 →</a>
+</div></div>
+</div>
+<footer class="footer"><p>ToolBox Pro - 极简在线工具箱 | 所有工具均在浏览器本地运行，数据不上传</p></footer>
+<script>
+var words=['lorem','ipsum','dolor','sit','amet','consectetur','adipiscing','elit','sed','do','eiusmod','tempor','incididunt','ut','labore','et','dolore','magna','aliqua','enim','ad','minim','veniam','quis','nostrud','exercitation','ullamco','laboris','nisi','ut','aliquip','ex','ea','commodo','consequat','duis','aute','irure','dolor','in','reprehenderit','in','voluptate','velit','esse','cillum','dolore','eu','fugiat','nulla','pariatur','excepteur','sint','occaecat','cupidatat','non','proident','sunt','in','culpa','qui','officia','deserunt','mollit','anim','id','est','laborum'];
+var currentText='';
+function gen(){
+var count=parseInt(document.getElementById('loremCount').value)||3;
+var sent=parseInt(document.getElementById('loremSent').value)||5;
+var start=document.getElementById('loremStart').checked;
+var paras=[];
+for(var p=0;p<count;p++){
+var text=[];
+var numWords=sent*(6+Math.floor(Math.random()*10));
+for(var i=0;i<numWords;i++)text.push(words[Math.floor(Math.random()*words.length)]);
+var result='',wi=0;
+for(var s=0;s<sent;s++){
+var sw=Math.floor(text.length/sent)+Math.floor(Math.random()*3);
+for(var w=0;w<sw&&wi<text.length;w++){var word=text[wi];result+=(w===0?word.charAt(0).toUpperCase()+word.slice(1):word);if(w<sw-1)result+=' ';wi++;}
+result+='. ';
+}
+paras.push(result.trim());
+}
+if(start&&paras.length>0)paras[0]='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '+paras[0];
+currentText=paras.join('\n\n');
+document.getElementById('loremOut').textContent=currentText;
+}
+function copy(){
+if(!currentText){gen();}
+navigator.clipboard.writeText(currentText||document.getElementById('loremOut').textContent).then(function(){
+var t=document.createElement('div');t.className='toast success';t.textContent='已复制到剪贴板';document.body.appendChild(t);setTimeout(function(){t.remove();},2000);
+});
+}
+gen();
+</script>
+<script>(function(){var b=document.createElement('script');var c=window.location.protocol.split(':')[0];if(c==='https'){b.src='https://zz.bdstatic.com/linksubmit/push.js';}else{b.src='http://push.zhanzhang.baidu.com/push.js';}var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(b,s);})();</script>
+</body>
+</html>
