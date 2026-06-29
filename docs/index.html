@@ -1088,7 +1088,7 @@ function formatJS() {
     for (let line of lines) {
       const trimmed = line.trim();
       if (!trimmed) continue;
-      if (/^[}\)\]])/.test(trimmed)) indent = Math.max(0, indent - 1);
+      if (/^[}\)\]]/.test(trimmed)) indent = Math.max(0, indent - 1);
       result.push('  '.repeat(indent) + trimmed);
       if (/[({[\]]$/.test(trimmed)) indent++;
       if (trimmed === '}' || trimmed === ']' || trimmed === ')') {
